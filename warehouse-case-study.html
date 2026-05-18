@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Warehouse Management App · BigBasket · UX Case Study</title>
+<meta name="description" content="UX case study — From a fragmented third-party Zebra app to a purpose-built, scanner-first warehouse tool designed around what operators actually do on the floor. 191+ screens across 7 modules." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   Warehouse Management App · BigBasket · UX Case Study
+   ============================================================ */
+:root {
+  --lime:       #A8E054;
+  --lime-deep:  #8BC93E;
+  --navy:       #14193E;
+  --navy-deep:  #0A0E2D;
+  --ink:        #0A0A0A;
+  --body:       #2A2A2A;
+  --slate:      #6B6B6B;
+  --gray:       #9F9F9F;
+  --line:       #E4E4E4;
+  --soft:       #F5F5F5;
+  --bg:         #FFFFFF;
+  --ease:       cubic-bezier(0.22, 1, 0.36, 1);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  letter-spacing: -0.005em;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+.mono { font-family: 'JetBrains Mono', monospace; }
+
+.top-strip { position: fixed; top: 0; left: 0; right: 0; height: 5px; background: var(--lime); z-index: 110; }
+
+.back-pill {
+  position: fixed; top: 22px; left: 28px; z-index: 200;
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 500; color: #fff;
+  background: rgba(20, 25, 62, 0.92);
+  padding: 9px 18px; border-radius: 22px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 14px rgba(20, 25, 62, 0.2);
+  transition: transform 0.3s var(--ease), background 0.3s var(--ease);
+}
+.back-pill .arr { transition: transform 0.3s var(--ease); display: inline-block; }
+.back-pill:hover { background: var(--navy); transform: translateX(-2px); }
+.back-pill:hover .arr { transform: translateX(-3px); }
+@media (max-width: 640px) { .back-pill { font-size: 12px; padding: 7px 14px; top: 14px; left: 14px; } }
+
+.scroll-progress { position: fixed; top: 5px; left: 0; height: 2px; background: var(--lime-deep); width: 0%; z-index: 100; transition: width 0.05s linear; }
+
+.dotnav { position: fixed; right: 18px; top: 50%; transform: translateY(-50%); z-index: 60; display: flex; flex-direction: column; gap: 14px; }
+.dotnav a { width: 8px; height: 8px; border-radius: 50%; background: rgba(10, 10, 10, 0.22); position: relative; transition: all 0.3s var(--ease); }
+.dotnav a::after { content: attr(data-label); position: absolute; right: 18px; top: 50%; transform: translateY(-50%); background: var(--ink); color: #fff; font-size: 11px; font-weight: 600; padding: 5px 10px; border-radius: 4px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.25s var(--ease); }
+.dotnav a:hover { background: var(--lime-deep); transform: scale(1.5); }
+.dotnav a:hover::after { opacity: 1; }
+.dotnav a.active { background: var(--lime-deep); transform: scale(1.7); box-shadow: 0 0 0 4px rgba(168, 224, 84, 0.20); }
+@media (max-width: 1080px) { .dotnav { display: none; } }
+
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.85s var(--ease), transform 0.85s var(--ease); }
+.reveal.in { opacity: 1; transform: translateY(0); }
+.reveal.d1 { transition-delay: 0.10s; }
+.reveal.d2 { transition-delay: 0.20s; }
+.reveal.d3 { transition-delay: 0.30s; }
+.reveal.d4 { transition-delay: 0.40s; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  * { animation: none !important; }
+}
+
+section { padding: 110px 80px; max-width: 1440px; margin: 0 auto; position: relative; }
+.container { max-width: 1200px; margin: 0 auto; }
+
+.eyebrow { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--lime-deep); margin-bottom: 22px; display: inline-block; }
+h2.display { font-family: 'Inter', sans-serif; font-size: clamp(40px, 5.4vw, 64px); font-weight: 800; line-height: 1.08; letter-spacing: -1.5px; color: var(--ink); margin-bottom: 28px; }
+.lede { font-size: 17px; line-height: 1.7; color: var(--body); max-width: 880px; margin-bottom: 50px; }
+
+.hero { padding: 130px 80px 90px; background: #fff; max-width: none; margin: 0; }
+.hero-inner { max-width: 1320px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 60px; align-items: center; }
+.hero-eyebrow { font-size: 13px; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase; color: var(--lime-deep); margin-bottom: 50px; }
+.hero h1 { font-size: clamp(56px, 8.5vw, 116px); font-weight: 800; line-height: 0.98; letter-spacing: -3px; color: var(--ink); margin-bottom: 18px; }
+.hero-subtitle { font-size: clamp(20px, 2vw, 24px); font-weight: 700; margin-bottom: 22px; }
+.hero-rule { width: 340px; max-width: 60%; height: 2px; background: var(--lime-deep); margin-bottom: 32px; }
+.hero-desc { font-size: 18px; line-height: 1.6; color: var(--body); max-width: 640px; margin-bottom: 80px; }
+.hero-byline { font-size: 16px; color: var(--ink); }
+.hero-byline strong { display: block; font-weight: 700; font-size: 18px; margin-bottom: 4px; }
+.bb-logo { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.bb-mark { width: 200px; height: 200px; border-radius: 36px; background: var(--lime); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; position: relative; font-family: 'Inter', sans-serif; font-weight: 900; font-size: 130px; letter-spacing: -8px; line-height: 1; color: var(--ink); box-shadow: 0 12px 30px rgba(0,0,0,0.10); }
+.bb-mark .bb-b1 { color: #E94B27; }
+.bb-mark .bb-b2 { color: var(--ink); margin-left: -28px; }
+.bb-name { font-family: 'Inter', sans-serif; font-weight: 800; font-size: 32px; letter-spacing: -1px; }
+.bb-name .red { color: #E94B27; }
+@media (max-width: 980px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+  .bb-logo { order: -1; align-items: flex-start; text-align: left; }
+}
+
+.challenge-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px; }
+.challenge-card { background: var(--soft); border-radius: 4px; border-top: 3px solid var(--lime); padding: 30px 30px 32px; transition: transform 0.45s var(--ease), box-shadow 0.45s var(--ease); }
+.challenge-card:hover { transform: translateY(-4px); box-shadow: 0 16px 36px rgba(0,0,0,0.08); }
+.challenge-card .icon { width: 28px; height: 28px; margin-bottom: 14px; color: var(--ink); }
+.challenge-card h4 { font-size: 19px; font-weight: 700; margin-bottom: 12px; }
+.challenge-card p { font-size: 15px; color: var(--body); line-height: 1.6; }
+@media (max-width: 740px) { .challenge-grid { grid-template-columns: 1fr; } }
+
+.before-list { display: flex; flex-direction: column; gap: 24px; max-width: 760px; }
+.before-item { border-left: 3px solid #E94B27; padding: 6px 0 6px 22px; transition: transform 0.4s var(--ease); }
+.before-item:hover { transform: translateX(6px); }
+.before-item h4 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.before-item p { font-size: 14px; color: var(--slate); line-height: 1.6; }
+
+.research-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; margin-bottom: 40px; }
+.research-bullets { display: flex; flex-direction: column; gap: 16px; }
+.research-bullet { border-left: 3px solid #E94B27; padding: 4px 0 4px 18px; font-size: 15px; line-height: 1.55; color: var(--ink); }
+.research-callouts { display: flex; flex-direction: column; gap: 14px; }
+.callout-card { background: #fff; border: 1px solid var(--line); border-radius: 4px; padding: 18px 22px; transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease); }
+.callout-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+.callout-card .ic { display: inline-block; width: 14px; height: 14px; background: var(--ink); border-radius: 3px; margin-bottom: 8px; }
+.callout-card h5 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+.callout-card p { font-size: 13px; color: var(--slate); line-height: 1.55; }
+@media (max-width: 880px) { .research-grid { grid-template-columns: 1fr; gap: 30px; } }
+
+.modules-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+.module-card { background: #fff; border: 1px solid var(--line); border-radius: 4px; padding: 22px 26px; transition: transform 0.45s var(--ease), border-color 0.45s var(--ease), box-shadow 0.45s var(--ease); }
+.module-card:hover { transform: translateY(-3px); border-color: var(--lime-deep); box-shadow: 0 10px 28px rgba(0,0,0,0.06); }
+.module-card .top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+.module-card .name { font-size: 17px; font-weight: 700; }
+.module-card .count { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--lime-deep); font-weight: 600; }
+.module-card p { font-size: 14px; color: var(--slate); line-height: 1.55; }
+@media (max-width: 740px) { .modules-grid { grid-template-columns: 1fr; } }
+
+.user-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 50px; }
+.persona-card { background: var(--soft); border-radius: 4px; padding: 36px 30px; }
+.persona-card .title { text-align: center; font-size: 18px; font-weight: 700; margin-bottom: 26px; padding-bottom: 22px; border-bottom: 1px solid var(--line); }
+.persona-card .row { display: flex; justify-content: space-between; padding: 9px 0; font-size: 14px; }
+.persona-card .row .k { color: var(--slate); }
+.persona-card .row .v { font-weight: 500; }
+.principles-list { display: flex; flex-direction: column; gap: 14px; }
+.principle { display: grid; grid-template-columns: 32px 1fr; gap: 14px; align-items: start; }
+.principle .ic { width: 24px; height: 24px; margin-top: 2px; background: var(--ink); border-radius: 4px; }
+.principle h5 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.principle p { font-size: 13px; color: var(--slate); line-height: 1.55; }
+@media (max-width: 880px) { .user-grid { grid-template-columns: 1fr; gap: 30px; } }
+
+.solution-band { background: var(--navy); color: #fff; padding: 100px 80px; text-align: left; max-width: none; margin: 0; position: relative; }
+.solution-band .inner { max-width: 1200px; margin: 0 auto; }
+.solution-band .monitor { width: 56px; height: 48px; margin-bottom: 40px; position: relative; }
+.solution-band .monitor::before { content: ''; position: absolute; inset: 0 0 10px 0; background: #fff; border-radius: 5px 5px 3px 3px; }
+.solution-band .monitor::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 22px; height: 6px; background: #fff; border-radius: 2px; }
+.solution-band h2 { color: #fff; font-size: clamp(48px, 6vw, 78px); font-weight: 800; letter-spacing: -2px; margin-bottom: 18px; }
+.solution-band p { font-size: 17px; font-weight: 600; color: #fff; margin-bottom: 36px; }
+.solution-band .module-tag { font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.3em; color: var(--lime); font-weight: 600; }
+
+.screen-block { margin-bottom: 60px; }
+.screen-image { background: #fff; border-radius: 6px; overflow: hidden; box-shadow: 0 14px 40px rgba(0, 0, 0, 0.08); transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease); }
+.screen-image:hover { transform: translateY(-4px); box-shadow: 0 22px 50px rgba(0, 0, 0, 0.14); }
+.screen-image img { width: 100%; display: block; }
+
+.impact-stat { font-family: 'JetBrains Mono', monospace; font-size: 16px; color: var(--slate); font-style: italic; margin-bottom: 50px; }
+.impact-list { display: flex; flex-direction: column; gap: 18px; max-width: 980px; }
+.impact-card { background: #fff; border-radius: 4px; padding: 24px 30px; display: grid; grid-template-columns: 32px 1fr; gap: 22px; align-items: start; box-shadow: 0 4px 18px rgba(0,0,0,0.06); transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease); }
+.impact-card:hover { transform: translateX(6px); box-shadow: 0 10px 28px rgba(0,0,0,0.10); }
+.impact-card .ic { width: 22px; height: 22px; margin-top: 4px; background: var(--ink); border-radius: 50%; }
+.impact-card h4 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+.impact-card p { font-size: 14px; line-height: 1.6; color: var(--body); }
+
+.closing { background: var(--navy); color: #fff; padding: 130px 80px; text-align: center; max-width: none; margin: 0; }
+.closing .inner { max-width: 760px; margin: 0 auto; }
+.closing .portrait { width: 100px; height: 100px; border-radius: 50%; overflow: hidden; margin: 0 auto 20px; background: #fff; box-shadow: 0 8px 24px rgba(0,0,0,0.30); }
+.closing .portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+.closing .name { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+.closing .role { font-size: 14px; color: #b9b9d0; margin-bottom: 30px; }
+.closing .project { font-size: 15px; color: #fff; font-weight: 600; margin-bottom: 24px; }
+.closing .summary { font-size: 14px; line-height: 1.7; color: #c4c4d8; margin-bottom: 30px; }
+.closing .counts { list-style: none; display: inline-block; text-align: center; margin: 0 auto 36px; font-size: 13px; color: #b9b9d0; }
+.closing .counts li { padding: 3px 0; }
+.closing .counts li::before { content: '•'; margin-right: 8px; color: var(--lime); }
+.closing .linkedin-pill { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border: 1.5px solid #fff; border-radius: 28px; font-size: 14px; color: #fff; transition: background 0.3s var(--ease), border-color 0.3s var(--ease), color 0.3s var(--ease); }
+.closing .linkedin-pill:hover { background: var(--lime); border-color: var(--lime); color: var(--ink); }
+
+@media (max-width: 1080px) {
+  section, .hero { padding: 70px 28px; }
+  .hero { padding-top: 110px; padding-bottom: 50px; }
+  .solution-band, .closing { padding: 70px 28px; }
+}
+@media (max-width: 640px) { section, .hero, .solution-band, .closing { padding-left: 20px; padding-right: 20px; } }
+</style>
+</head>
+<body>
+
+<a class="back-pill" href="index.html"><span class="arr">&larr;</span> Sujithra Balasubramani</a>
+<div class="top-strip"></div>
+<div class="scroll-progress" id="progress"></div>
+
+<nav class="dotnav" aria-label="Section nav">
+  <a href="#hero"      data-label="Intro" class="active"></a>
+  <a href="#challenge" data-label="The Challenge"></a>
+  <a href="#before"    data-label="Before State"></a>
+  <a href="#research"  data-label="Research"></a>
+  <a href="#product"   data-label="Product Overview"></a>
+  <a href="#user"      data-label="User Context"></a>
+  <a href="#solution"  data-label="Design Solution"></a>
+  <a href="#screens"   data-label="Key Screens"></a>
+  <a href="#impact"    data-label="Impact"></a>
+  <a href="#closing"   data-label="Contact"></a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <div>
+      <p class="hero-eyebrow reveal">Warehouse Management System &middot; UX Case Study</p>
+      <h1 class="reveal d1">Warehouse<br>Management App</h1>
+      <p class="hero-subtitle reveal d1">UX &amp; UI Case Study</p>
+      <div class="hero-rule reveal d2"></div>
+      <p class="hero-desc reveal d2">From a fragmented third-party Zebra app to a purpose-built, scanner-first warehouse tool designed around what operators actually do on the floor.</p>
+      <p class="hero-byline reveal d3">
+        <strong>Sujithra Balasubramani</strong>
+        Senior Product Designer &nbsp;|&nbsp; Bangalore
+      </p>
+    </div>
+    <div class="bb-logo reveal d2">
+      <div class="bb-mark"><span class="bb-b1">b</span><span class="bb-b2">b</span></div>
+      <div class="bb-name">big<span class="red">basket</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CHALLENGE -->
+<section id="challenge">
+  <div class="container">
+    <p class="eyebrow reveal">The Challenge</p>
+    <h2 class="display reveal d1">A third party WMS with no room to improve</h2>
+    <div class="challenge-grid" style="margin-top: 30px;">
+      <div class="challenge-card reveal d1">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="2" width="12" height="20" rx="2"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+        <h4>Third-Party Dependency</h4>
+        <p>Operators used a vendor-managed Zebra WMS. BigBasket had zero control over UX, workflow logic, or the ability to iterate and improve.</p>
+      </div>
+      <div class="challenge-card reveal d2">
+        <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8"/><rect x="13" y="3" width="8" height="8"/><rect x="3" y="13" width="8" height="8"/><rect x="13" y="13" width="8" height="8"/></svg>
+        <h4>High Cognitive Load</h4>
+        <p>Excessive actions per screen increased cognitive load, requiring operators to make system-level decisions.</p>
+      </div>
+      <div class="challenge-card reveal d3">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="16" y1="16" x2="21" y2="21"/></svg>
+        <h4>Hidden Inventory Data</h4>
+        <p>Checking QOH, batch info or bin locations meant switching screens or walking to a desktop terminal mid-task, under time pressure.</p>
+      </div>
+      <div class="challenge-card reveal d4">
+        <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 22,8 12,14 2,8"/><polygon points="2,12 12,18 22,12" opacity="0.6"/><polygon points="2,16 12,22 22,16" opacity="0.4"/></svg>
+        <h4>Manual FMCG / FNV Flow</h4>
+        <p>Found FMCG and FNV stock had no digital process. Workers improvised, causing inventory mismatches and write off delays.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BEFORE STATE -->
+<section id="before">
+  <div class="container">
+    <p class="eyebrow reveal">The Before State</p>
+    <h2 class="display reveal d1">What operators dealt with every single shift</h2>
+    <div class="before-list" style="margin-top: 30px;">
+      <div class="before-item reveal d1"><h4>6 action buttons with zero visual hierarchy</h4><p>HOLD, CLOSE CRATE, REFRESH, GENERATE EXTRA BARCODE, SWAP POSITION, POST &mdash; all on one screen. Operators decided what to press under time pressure.</p></div>
+      <div class="before-item reveal d1"><h4>Information density with no grouping logic</h4><p>Cart, QOH, Location, Order No, SubType, Position, Pick Qty all at equal visual weight. The eye has no natural path through the screen.</p></div>
+      <div class="before-item reveal d2"><h4>Two competing scan fields shown simultaneously</h4><p>'Scan Product' and 'Scan Position' both visible at once. Workers frequently scanned the wrong field without immediate feedback.</p></div>
+      <div class="before-item reveal d2"><h4>No FIFO batch logic surfaced to the operator</h4><p>Batch expiry and manufacturing dates were hidden. Operators manually decided which stock to pick introducing human error into inventory integrity.</p></div>
+      <div class="before-item reveal d3"><h4>External vendor zero iteration control</h4><p>Any UX issue required a vendor request. BigBasket could not fix, improve or adapt the tool to match their warehouse operations.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="container">
+    <p class="eyebrow reveal">03 &middot; Research</p>
+    <h2 class="display reveal d1">Field Observation</h2>
+    <p class="lede reveal d2">No brief document existed. The only way to understand the problem was to see it live.</p>
+    <p class="eyebrow reveal d2" style="color: var(--ink); font-size: 11px; margin-bottom: 18px;">What I observed on the floor</p>
+    <div class="research-grid">
+      <div class="research-bullets reveal d2">
+        <div class="research-bullet">Workers operated the Zebra device one-handed while physically handling stock gloves on, moving fast.</div>
+        <div class="research-bullet">The legacy app required them to read through dense text to find the bin location. Many had memorised common locations to avoid reading it at all.</div>
+        <div class="research-bullet">Several operators pressed the wrong button more than once per session. The coloured buttons (red CLOSE CRATE, green REFRESH, orange GENERATE) created confusion rather than guidance.</div>
+        <div class="research-bullet">The field visit made it immediately clear: the app needed to show one instruction at a time, let the scanner do the work, and eliminate every optional decision from the screen.</div>
+        <div class="research-bullet">My lead reviewed my observations and helped me validate the direction fewer steps, guided flow, scanner-initiated actions.</div>
+      </div>
+      <div class="research-callouts reveal d3">
+        <div class="callout-card"><span class="ic"></span><h5>Live Experience &gt; Assumptions</h5><p>Seeing operators use the Zebra device in real warehouse lighting, with gloves, under time pressure immediately invalidated the desk assumptions I started with.</p></div>
+        <div class="callout-card"><span class="ic"></span><h5>Click Reduction as the Core Goal</h5><p>Every extra tap is a warehouse costs seconds at scale. The field visit made click reduction the primary success metric not visual aesthetics.</p></div>
+        <div class="callout-card"><span class="ic"></span><h5>The Visit Defined the Flow</h5><p>The one-instruction-at-a-time principle, the persistent SKU header, and the scan entry point all came directly from watching operators on the floor not from a brief.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT OVERVIEW -->
+<section id="product">
+  <div class="container">
+    <p class="eyebrow reveal">Product Overview</p>
+    <h2 class="display reveal d1">Integrated Warehouse Ecosystem with Seven Specialized Applications</h2>
+    <p class="lede reveal d2">191+ screens delivered &mdash; built as seven focused apps, each doing one warehouse job and doing it cleanly.</p>
+    <div class="modules-grid" style="margin-top: 24px;">
+      <div class="module-card reveal d1"><div class="top"><span class="name">Stacking App</span><span class="count">28 screens</span></div><p>Scan SKU &rarr; FIFO batch &rarr; confirm qty &rarr; scan &amp; stack to bin</p></div>
+      <div class="module-card reveal d1"><div class="top"><span class="name">L&amp;F &mdash; FMCG</span><span class="count">32 screens</span></div><p>Log found items, create batch, assign bin with MRP &amp; expiry</p></div>
+      <div class="module-card reveal d2"><div class="top"><span class="name">Bin &rarr; Bin Movement</span><span class="count">37 screens</span></div><p>Transfer stock between two bin locations with full batch trace</p></div>
+      <div class="module-card reveal d2"><div class="top"><span class="name">L&amp;F &mdash; FNV</span><span class="count">24 screens</span></div><p>Same flow adapted for fresh produce, weight-based quantities</p></div>
+      <div class="module-card reveal d3"><div class="top"><span class="name">Bin &rarr; Bulk Movement</span><span class="count">26 screens</span></div><p>Return excess bin stock to bulk with quantity logging</p></div>
+      <div class="module-card reveal d3"><div class="top"><span class="name">Stock Info App</span><span class="count">9 screens</span></div><p>Quick SKU scan to check live Quantity on Hand across the DC</p></div>
+      <div class="module-card reveal d4"><div class="top"><span class="name">Bulk &rarr; Bin Movement</span><span class="count">34 screens</span></div><p>Replenish bins from bulk, system suggests optimal quantities</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- USER CONTEXT -->
+<section id="user">
+  <div class="container">
+    <p class="eyebrow reveal">User Context</p>
+    <h2 class="display reveal d1">Tailored for Frontline Warehouse Execution</h2>
+    <p class="eyebrow reveal d2" style="color: var(--ink); font-size: 11px; margin: 30px 0 18px;">Primary User</p>
+    <div class="user-grid">
+      <div class="persona-card reveal d2">
+        <div class="title">Warehouse Operator</div>
+        <div class="row"><span class="k">Age Range</span><span class="v">22&ndash;40 years</span></div>
+        <div class="row"><span class="k">Shift Length</span><span class="v">8&ndash;10 hrs / day</span></div>
+        <div class="row"><span class="k">Tech Comfort</span><span class="v">Low Medium</span></div>
+        <div class="row"><span class="k">Language</span><span class="v">Hindi / Regional</span></div>
+        <div class="row"><span class="k">Device</span><span class="v">Android Zebra</span></div>
+        <div class="row"><span class="k">Environment</span><span class="v">Warehouse</span></div>
+      </div>
+      <div class="principles-list reveal d3">
+        <div class="principle"><div class="ic"></div><div><h5>Scanner-First</h5><p>Every flow starts with a scan. No manual typing. Scanner initiates all key actions.</p></div></div>
+        <div class="principle"><div class="ic"></div><div><h5>Persistent SKU Context</h5><p>SKU ID and description anchored at the top of every screen. Operators never lose track.</p></div></div>
+        <div class="principle"><div class="ic"></div><div><h5>System Suggestions</h5><p>Suggested qty and bin locations surface from the backend. Operators confirm, not calculate.</p></div></div>
+        <div class="principle"><div class="ic"></div><div><h5>Session Timers</h5><p>20-min countdown prevents ghost tasks. Supervisor throughput stays predictable.</p></div></div>
+        <div class="principle"><div class="ic"></div><div><h5>Confirm Before Commit</h5><p>All destructive or irreversible actions require modal confirmation. Errors in stacking are expensive.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DESIGN SOLUTION BAND -->
+<section class="solution-band" id="solution">
+  <div class="inner">
+    <div class="monitor reveal"></div>
+    <h2 class="reveal d1">Design Solution</h2>
+    <p class="reveal d2">Screen by screen walkthrough with actual designs</p>
+    <p class="module-tag reveal d2">MODULE 01</p>
+  </div>
+</section>
+
+<!-- KEY SCREENS -->
+<section id="screens">
+  <div class="container">
+    <div class="screen-block reveal"><div class="screen-image"><img src="warehouse_assets/slide-08-screen-stacking.jpg" alt="Stacking App — 28 screens · Scan → Batch → Confirm → Stack" loading="lazy" /></div></div>
+    <div class="screen-block reveal"><div class="screen-image"><img src="warehouse_assets/slide-09-screen-stock-movement.jpg" alt="Stock Movement Suite — 97 screens" loading="lazy" /></div></div>
+    <div class="screen-block reveal"><div class="screen-image"><img src="warehouse_assets/slide-10-screen-lf-fmcg.jpg" alt="Lost & Found — FMCG" loading="lazy" /></div></div>
+    <div class="screen-block reveal"><div class="screen-image"><img src="warehouse_assets/slide-11-screen-lf-fnv.jpg" alt="Lost & Found — FNV for perishables" loading="lazy" /></div></div>
+    <div class="screen-block reveal"><div class="screen-image"><img src="warehouse_assets/slide-12-screen-stock-info.jpg" alt="Stock Info App + shared design system" loading="lazy" /></div></div>
+    <div class="screen-block reveal"><div class="screen-image"><img src="warehouse_assets/slide-13-screen-error-states.jpg" alt="Error & Edge States" loading="lazy" /></div></div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section id="impact">
+  <div class="container">
+    <p class="eyebrow reveal">Impact &amp; Outcome</p>
+    <h2 class="display reveal d1">Deployment &amp; Adoption for Warehouse Operations</h2>
+    <p class="impact-stat reveal d2"><em>191+ Screens Delivered &mdash; across 7 modules</em></p>
+    <div class="impact-list">
+      <div class="impact-card reveal d1"><div class="ic"></div><div><h4>Field Visit Overview</h4><p>No project document existed. Going to the warehouse in person gave me the brief, the user, the constraint, and the primary design direction all in one visit.</p></div></div>
+      <div class="impact-card reveal d2"><div class="ic"></div><div><h4>Click Reduction for Operational Efficiency</h4><p>In a warehouse, every extra tap is a cost. Operational UX is not about aesthetics &mdash; it's about eliminating decisions that the system should already have made.</p></div></div>
+      <div class="impact-card reveal d3"><div class="ic"></div><div><h4>The Power of Modular Applications</h4><p>Splitting into focused apps eliminated mode confusion. Operators launched the right tool, did their task, and closed it. No navigation, no menus, no wrong flows.</p></div></div>
+      <div class="impact-card reveal d4"><div class="ic"></div><div><h4>Warehouse Operations Learning Project</h4><p>Designing for warehouse ops taught me inventory lifecycle, FIFO logic, batch traceability, and DC operations knowledge that made every design decision better informed.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section class="closing" id="closing">
+  <div class="inner">
+    <div class="portrait reveal">
+      <img src="freelance_assets/sujithra/portrait.jpg" alt="Sujithra Balasubramani"
+           onerror="this.style.display='none'" />
+    </div>
+    <div class="name reveal d1">Sujithra Balasubramani</div>
+    <div class="role reveal d1">Lead Experience Designer</div>
+    <div class="project reveal d2">BigBasket WMS Suite &mdash; UX Case Study</div>
+    <p class="summary reveal d2">This project shaped my understanding of what operational UX really means designing not for the ideal user in an ideal environment, but for the operator at 6 AM, in a 30,000 sq ft warehouse, wearing gloves, on their fourth hour of a shift. Going to the warehouse was the most valuable design decision I made on this project.</p>
+    <ul class="counts reveal d3">
+      <li>Stacking App &mdash; 28 screens</li>
+      <li>Bin &rarr; Bin Movement &mdash; 37 screens</li>
+      <li>Bin &rarr; Bulk Movement &mdash; 26 screens</li>
+      <li>Bulk &rarr; Bin Movement &mdash; 34 screens</li>
+      <li>L&amp;F FMCG &mdash; 32 screens</li>
+      <li>L&amp;F FNV &mdash; 24 screens</li>
+      <li>Stock Info App &mdash; 9 screens</li>
+    </ul>
+    <br>
+    <a class="linkedin-pill reveal d3" href="https://www.linkedin.com/in/sujithra-balasubramani-73b687a9/" target="_blank" rel="noopener">
+      Connect via LinkedIn &nbsp;@Sujithra Balasubramani
+    </a>
+  </div>
+</section>
+
+<script>
+const progress = document.getElementById('progress');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  progress.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
+}, { passive: true });
+
+const ro = new IntersectionObserver(es => {
+  es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); }
+  });
+}, { threshold: 0.10, rootMargin: '0px 0px -8% 0px' });
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+const navLinks = document.querySelectorAll('.dotnav a');
+const sections = Array.from(navLinks).map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+const navObs = new IntersectionObserver((es) => {
+  es.forEach(e => {
+    if (e.isIntersecting) {
+      const i = sections.indexOf(e.target);
+      if (i >= 0) navLinks.forEach((l, j) => l.classList.toggle('active', j === i));
+    }
+  });
+}, { rootMargin: '-40% 0px -55% 0px' });
+sections.forEach(s => s && navObs.observe(s));
+</script>
+
+</body>
+</html>

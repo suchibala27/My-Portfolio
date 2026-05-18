@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Appointment Finder · ATI Physical Therapy · UX Case Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Tinos:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   Appointment Finder · ATI Physical Therapy · UX Case Study
+   Faithful conversion of Figma node 574-41061 to HTML
+   ============================================================ */
+:root {
+  --red:        #E11E2D;
+  --red-deep:   #B81825;
+  --red-soft:   #FDE7E9;
+  --red-light:  #FFB1B8;
+  --teal:       #0AA28E;
+  --navy:       #0E1336;
+  --navy-deep:  #060924;
+  --ink:        #0A0A14;
+  --body:       #2A2A36;
+  --slate:      #5C5C70;
+  --gray:       #9A9AB0;
+  --border:     #E6E6EC;
+  --line:       #DADADF;
+  --bg:         #FFFFFF;
+  --ease:       cubic-bezier(0.22, 1, 0.36, 1);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Serif heading family — matches Figma's Times-like display type */
+.serif, h1.display, h2.display, h3.display {
+  font-family: 'Tinos', 'Times New Roman', serif;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+/* ============ LEFT RED RAIL (runs full page height) ============ */
+.left-rail {
+  position: fixed;
+  left: 0; top: 0; bottom: 0;
+  width: 6px;
+  background: var(--red);
+  z-index: 90;
+}
+
+/* ============ BACK TO PORTFOLIO ============ */
+.back-to-portfolio {
+  position: fixed;
+  top: 22px; left: 28px;
+  z-index: 200;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  color: #fff;
+  background: rgba(14, 19, 54, 0.92);
+  padding: 9px 18px;
+  border-radius: 22px;
+  text-decoration: none;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 14px rgba(14, 19, 54, 0.2);
+  transition: transform 0.3s var(--ease), background 0.3s var(--ease);
+}
+.back-to-portfolio .arr { transition: transform 0.3s var(--ease); display: inline-block; }
+.back-to-portfolio:hover { background: var(--navy); transform: translateX(-2px); }
+.back-to-portfolio:hover .arr { transform: translateX(-3px); }
+@media (max-width: 640px) {
+  .back-to-portfolio { font-size: 12px; padding: 7px 14px; top: 14px; left: 24px; }
+}
+
+/* ============ SCROLL PROGRESS ============ */
+.scroll-progress {
+  position: fixed; top: 0; left: 0;
+  height: 3px;
+  background: var(--navy);
+  width: 0%; z-index: 101;
+  transition: width 0.05s linear;
+}
+
+/* ============ SECTION RAIL NAV ============ */
+.section-nav {
+  position: fixed;
+  right: 18px; top: 50%;
+  transform: translateY(-50%);
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.section-nav a {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(14, 19, 54, 0.22);
+  position: relative;
+  transition: all 0.3s var(--ease);
+}
+.section-nav a::after {
+  content: attr(data-label);
+  position: absolute;
+  right: 20px; top: 50%;
+  transform: translateY(-50%) translateX(8px);
+  background: var(--navy); color: #fff;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.4px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0; pointer-events: none;
+  transition: all 0.25s var(--ease);
+}
+.section-nav a:hover { background: var(--red); transform: scale(1.5); }
+.section-nav a:hover::after { opacity: 1; transform: translateY(-50%) translateX(0); }
+.section-nav a.active {
+  background: var(--red);
+  transform: scale(1.7);
+  box-shadow: 0 0 0 4px rgba(225, 30, 45, 0.16);
+}
+@media (max-width: 980px) { .section-nav { display: none; } }
+
+/* ============ LAYOUT BASE ============ */
+section {
+  padding: 100px 96px;
+  position: relative;
+  background: var(--bg);
+}
+.container { max-width: 1200px; margin: 0 auto; }
+
+/* eyebrow tracking lifted from Figma slides */
+.eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--red);
+  margin-bottom: 28px;
+  display: inline-block;
+}
+h2.display {
+  font-size: clamp(40px, 5.4vw, 64px);
+  line-height: 1.05;
+  color: var(--ink);
+  margin-bottom: 18px;
+  letter-spacing: -1px;
+}
+.red-rule {
+  width: 220px; height: 2px;
+  background: var(--red);
+  margin-bottom: 38px;
+}
+.section-lede {
+  font-size: 17px;
+  color: var(--body);
+  line-height: 1.7;
+  margin-bottom: 50px;
+  max-width: 880px;
+}
+
+/* ============ REVEAL ============ */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+}
+.reveal.in { opacity: 1; transform: translateY(0); }
+.reveal.d1 { transition-delay: 0.08s; }
+.reveal.d2 { transition-delay: 0.16s; }
+.reveal.d3 { transition-delay: 0.24s; }
+.reveal.d4 { transition-delay: 0.32s; }
+.reveal.d5 { transition-delay: 0.40s; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  * { scroll-behavior: auto; }
+}
+
+/* ============ HERO (slide 1) ============ */
+.hero {
+  padding: 140px 96px 110px;
+  background: #fff;
+}
+.hero-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+.hero-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 60px;
+}
+.hero h1.display {
+  font-family: 'Tinos', 'Times New Roman', serif;
+  font-size: clamp(60px, 9vw, 128px);
+  font-weight: 700;
+  line-height: 0.96;
+  letter-spacing: -3.5px;
+  color: var(--ink);
+  margin-bottom: 28px;
+}
+.hero h2.subtitle {
+  font-family: 'Tinos', 'Times New Roman', serif;
+  font-size: clamp(28px, 3.4vw, 40px);
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 26px;
+  letter-spacing: -0.5px;
+}
+.hero-rule {
+  width: 360px; max-width: 60%;
+  height: 2px;
+  background: var(--red);
+  margin-bottom: 38px;
+}
+.hero-tagline {
+  font-family: 'Tinos', 'Times New Roman', serif;
+  font-size: clamp(20px, 2vw, 26px);
+  color: var(--ink);
+  line-height: 1.45;
+  max-width: 720px;
+  margin-bottom: 80px;
+}
+.hero-byline {
+  font-size: 17px;
+  color: var(--ink);
+  line-height: 1.5;
+}
+.hero-byline strong {
+  display: block;
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 2px;
+}
+.hero-logo-wrap {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding-top: 40px;
+}
+.hero-logo-wrap img {
+  width: 100%;
+  max-width: 380px;
+  height: auto;
+  object-fit: contain;
+}
+.ati-logo-fallback {
+  font-family: 'Inter', sans-serif;
+  font-weight: 900;
+  font-style: italic;
+  font-size: 80px;
+  color: var(--red);
+  letter-spacing: -3.5px;
+  line-height: 1;
+  text-align: right;
+}
+.ati-logo-fallback .small {
+  display: block;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: var(--ink);
+  margin-top: 6px;
+  text-transform: uppercase;
+}
+
+/* ============ PROJECT CONTEXT (slide 2) ============ */
+.context-meta {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 60px;
+  margin-bottom: 68px;
+  max-width: 900px;
+}
+.context-meta .label {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 10px;
+}
+.context-meta .value {
+  font-size: 17px;
+  color: var(--ink);
+  font-weight: 500;
+}
+.context-board {
+  background: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 60px;
+  box-shadow: 0 8px 28px rgba(20, 20, 40, 0.10);
+  transition: transform 0.6s var(--ease), box-shadow 0.6s var(--ease);
+}
+.context-board:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 44px rgba(20, 20, 40, 0.15);
+}
+.context-board img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.context-board .caption {
+  text-align: center;
+  font-style: italic;
+  color: var(--slate);
+  font-size: 14px;
+  padding: 14px 20px;
+}
+.scope-bar {
+  background: var(--ink);
+  color: #fff;
+  padding: 22px 30px;
+  border-radius: 2px;
+  font-size: 16px;
+  line-height: 1.65;
+  display: flex;
+  gap: 26px;
+  align-items: baseline;
+}
+.scope-bar .lab {
+  color: var(--red);
+  font-weight: 700;
+  letter-spacing: 2px;
+  font-size: 13px;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+@media (max-width: 880px) {
+  .scope-bar { flex-direction: column; gap: 8px; }
+  .context-meta { grid-template-columns: 1fr; gap: 28px; }
+}
+
+/* ============ PROBLEM (slide 3) ============ */
+.problem-list {
+  display: flex; flex-direction: column;
+  gap: 40px;
+  max-width: 920px;
+}
+.problem-item {
+  border-left: 3px solid var(--red);
+  padding: 4px 0 4px 26px;
+  transition: transform 0.4s var(--ease), border-left-width 0.4s var(--ease);
+}
+.problem-item:hover { transform: translateX(6px); border-left-width: 5px; }
+.problem-item h4 {
+  font-family: 'Inter', sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+.problem-item p {
+  font-size: 16px;
+  color: var(--body);
+  line-height: 1.65;
+}
+
+/* ============ RESEARCH (slide 4) ============ */
+.research-list {
+  display: flex; flex-direction: column;
+  gap: 36px;
+  max-width: 960px;
+  margin-bottom: 48px;
+}
+.research-item h4 {
+  font-family: 'Inter', sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 8px;
+  display: flex; align-items: center;
+  gap: 10px;
+}
+.research-item h4 .ic {
+  width: 18px; height: 18px;
+  border-radius: 4px;
+  background: var(--red);
+  display: inline-block;
+  position: relative;
+  flex-shrink: 0;
+}
+.research-item h4 .ic.chat::after {
+  content: '';
+  position: absolute;
+  left: 4px; top: 5px;
+  width: 10px; height: 7px;
+  border: 2px solid #fff;
+  border-radius: 2px;
+}
+.research-item h4 .ic.eye::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 2px solid #fff;
+  border-radius: 50% 50% 50% 50% / 30% 30% 30% 30%;
+}
+.research-item h4 .ic.people::after {
+  content: '';
+  position: absolute;
+  left: 3px; top: 6px;
+  width: 12px; height: 8px;
+  background: #fff;
+  border-radius: 8px 8px 0 0;
+}
+.research-item p {
+  font-size: 16px;
+  color: var(--body);
+  line-height: 1.65;
+  margin-bottom: 10px;
+}
+.research-item .quote {
+  font-size: 15px;
+  font-style: italic;
+  color: var(--slate);
+}
+.insight-callout {
+  background: var(--ink);
+  color: #fff;
+  padding: 26px 36px;
+  border-radius: 2px;
+  font-size: 17px;
+  line-height: 1.65;
+}
+.insight-callout .lab {
+  color: var(--red);
+  font-weight: 700;
+  margin-right: 8px;
+}
+
+/* ============ 6-STEP FLOW (slide 5) ============ */
+.flow-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 22px;
+  margin-bottom: 50px;
+}
+.flow-step {
+  text-align: center;
+  position: relative;
+  padding-top: 22px;
+  transition: transform 0.45s var(--ease);
+}
+.flow-step:hover { transform: translateY(-6px); }
+.flow-step::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2.5px;
+  background: var(--red);
+  transform-origin: left center;
+  transform: scaleX(1);
+  transition: transform 0.6s var(--ease);
+}
+.flow-step:last-child::before { background: var(--teal); }
+.flow-icon {
+  width: 64px; height: 64px;
+  margin: 18px auto 24px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--red);
+  transition: transform 0.45s var(--ease);
+}
+.flow-step:last-child .flow-icon { color: var(--teal); }
+.flow-step:hover .flow-icon { transform: scale(1.08) rotate(-3deg); }
+.flow-icon svg { width: 56px; height: 56px; }
+.flow-step h5 {
+  font-family: 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+.flow-step .step-desc {
+  font-size: 14px;
+  color: var(--slate);
+  font-style: italic;
+  line-height: 1.5;
+}
+.approach-bar {
+  background: var(--ink);
+  color: #fff;
+  padding: 22px 30px;
+  border-radius: 2px;
+  font-size: 16px;
+  line-height: 1.65;
+}
+.approach-bar .lab {
+  color: var(--red);
+  font-weight: 700;
+  letter-spacing: 2px;
+  font-size: 13px;
+  text-transform: uppercase;
+  margin-right: 12px;
+}
+@media (max-width: 980px) {
+  .flow-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ============ DESIGN SOLUTION BAND (slide 6) ============ */
+.solution-band {
+  background: var(--navy);
+  color: #fff;
+  padding: 130px 96px;
+  text-align: center;
+  position: relative;
+  border-top: 4px solid var(--red);
+  border-bottom: 4px solid var(--red);
+}
+.solution-band .monitor {
+  width: 64px;
+  height: 56px;
+  margin: 0 auto 30px;
+  position: relative;
+}
+.solution-band .monitor::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 12px 0;
+  background: #fff;
+  border-radius: 6px 6px 4px 4px;
+}
+.solution-band .monitor::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 24px; height: 8px;
+  background: #fff;
+  border-radius: 2px;
+}
+.solution-band h2.display {
+  color: #fff;
+  font-size: clamp(48px, 6vw, 80px);
+  line-height: 1.05;
+  margin-bottom: 22px;
+}
+.solution-band p {
+  font-size: 18px;
+  color: #c4c4d8;
+  margin-bottom: 22px;
+}
+.solution-band .underbar {
+  width: 380px;
+  max-width: 60%;
+  height: 2px;
+  background: var(--red);
+  margin: 0 auto;
+}
+
+/* ============ SCREEN BLOCKS (slides 7,8,10,11,12) ============ */
+.screen-block {
+  margin-bottom: 130px;
+}
+.screen-block:last-child { margin-bottom: 0; }
+.screen-image {
+  background: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 18px 44px rgba(20, 20, 40, 0.10);
+  transition: transform 0.6s var(--ease), box-shadow 0.6s var(--ease);
+}
+.screen-image:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 28px 60px rgba(20, 20, 40, 0.18);
+}
+.screen-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ============ EXPLORATION (slide 9) ============ */
+.explore-list {
+  display: flex;
+  flex-direction: column;
+  gap: 44px;
+  max-width: 960px;
+}
+.explore-item {
+  border-left: 3px solid var(--red);
+  padding: 4px 0 4px 26px;
+}
+.explore-item h4 {
+  font-family: 'Inter', sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.explore-item h4 .ic {
+  width: 16px; height: 16px;
+  border-radius: 3px;
+  background: var(--red);
+  display: inline-block;
+  flex-shrink: 0;
+}
+.explore-item ul {
+  list-style: none;
+  margin: 0; padding: 0;
+}
+.explore-item li {
+  font-size: 16px;
+  color: var(--body);
+  line-height: 1.65;
+  padding-left: 22px;
+  position: relative;
+  margin-bottom: 12px;
+}
+.explore-item li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 9px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--red);
+}
+.explore-item li.why { color: var(--ink); }
+.explore-item li.why::before { background: #F2A93B; }
+.explore-item li.why strong { color: #F2A93B; }
+
+/* ============ IMPACT (slide 14) ============ */
+.impact-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+  margin-bottom: 48px;
+}
+.impact-card { text-align: center; }
+.impact-card .v {
+  font-family: 'Tinos', 'Times New Roman', serif;
+  font-size: 64px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1;
+  margin-bottom: 12px;
+  letter-spacing: -2px;
+}
+.impact-card .l {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  color: var(--ink);
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+.impact-card .detail {
+  background: var(--navy);
+  color: #c4c4d8;
+  border-radius: 4px;
+  padding: 22px 18px;
+  font-size: 13px;
+  line-height: 1.55;
+  min-height: 130px;
+  transition: transform 0.45s var(--ease), background 0.45s var(--ease);
+}
+.impact-card:hover .detail {
+  transform: translateY(-4px);
+  background: var(--navy-deep);
+}
+.impact-quali {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--red);
+  margin-bottom: 22px;
+}
+.impact-bullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 920px;
+}
+.impact-bullets li {
+  font-size: 16px;
+  color: var(--ink);
+  padding-left: 22px;
+  position: relative;
+  line-height: 1.6;
+}
+.impact-bullets li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 8px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--red);
+}
+@media (max-width: 980px) {
+  .impact-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ============ CLOSING FOOTER (slide 15) ============ */
+footer.closing {
+  background: var(--navy);
+  color: #fff;
+  padding: 140px 96px;
+  text-align: center;
+  position: relative;
+}
+footer.closing .portrait {
+  width: 110px; height: 110px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 30px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.30);
+}
+footer.closing .portrait img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+footer.closing .name {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+footer.closing .role {
+  font-size: 17px;
+  color: #b9b9d0;
+  font-weight: 400;
+  margin-bottom: 80px;
+}
+footer.closing .pitch {
+  font-size: 18px;
+  line-height: 1.7;
+  color: #d8d8e8;
+  max-width: 720px;
+  margin: 0 auto 50px;
+}
+footer.closing .linkedin-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border: 1.5px solid #fff;
+  border-radius: 30px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  transition: all 0.35s var(--ease);
+}
+footer.closing .linkedin-pill:hover {
+  background: var(--red);
+  border-color: var(--red);
+  transform: translateY(-2px);
+}
+footer.closing .linkedin-pill u { text-decoration: underline; }
+footer.closing .credit {
+  margin-top: 60px;
+  font-size: 12px;
+  color: var(--gray);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 1080px) {
+  section, footer.closing { padding: 70px 36px; }
+  .hero { padding: 110px 36px 70px; }
+  .solution-band { padding: 80px 36px; }
+  .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+  .hero-logo-wrap { justify-content: flex-start; padding-top: 0; margin-bottom: 14px; }
+  .hero-logo-wrap img, .ati-logo-fallback { max-width: 220px; }
+  h2.display { font-size: 36px; }
+}
+@media (max-width: 640px) {
+  .left-rail { width: 4px; }
+  section, footer.closing { padding-left: 24px; padding-right: 24px; }
+  .impact-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<a class="back-to-portfolio" href="index.html"><span class="arr">&larr;</span> Sujithra Balasubramani</a>
+
+<div class="left-rail"></div>
+<div class="scroll-progress" id="progress"></div>
+
+<nav class="section-nav" aria-label="Section navigation">
+  <a href="#hero" data-label="Intro" class="active"></a>
+  <a href="#context" data-label="Project Context"></a>
+  <a href="#problem" data-label="The Problem"></a>
+  <a href="#research" data-label="Research"></a>
+  <a href="#flow" data-label="Booking Flow"></a>
+  <a href="#solution" data-label="Design Solution"></a>
+  <a href="#screens" data-label="Key Screens"></a>
+  <a href="#explore" data-label="Final Design"></a>
+  <a href="#impact" data-label="Impact"></a>
+  <a href="#closing" data-label="Contact"></a>
+</nav>
+
+<!-- ============ HERO (slide 1) ============ -->
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <div>
+      <p class="hero-eyebrow reveal">ATI &nbsp; PHYSICAL &nbsp; THERAPY</p>
+      <h1 class="display reveal d1">Appointment<br>Finder</h1>
+      <h2 class="subtitle reveal d2">UX Case Study</h2>
+      <div class="hero-rule reveal d2"></div>
+      <p class="hero-tagline reveal d3">A centralised scheduling platform for ATI agents to search patients, discover clinic availability, and book appointments replacing fragmented spreadsheets with a unified experience.</p>
+      <p class="hero-byline reveal d4">
+        <strong>Sujithra Balasubramani</strong>
+        Lead Experience Designer · Chennai
+      </p>
+    </div>
+    <div class="hero-logo-wrap reveal d2">
+      <img src="https://wsrv.nl/?url=www.atipt.com%2Fwp-content%2Fuploads%2F2024%2F10%2Ff0cadca461d9dbc05695542ca656dbf4.png&w=600&output=png"
+           alt="ATI Physical Therapy"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+      <div class="ati-logo-fallback" style="display:none;"><i>ATI</i><span class="small">Physical Therapy</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECT CONTEXT (slide 2) ============ -->
+<section id="context">
+  <div class="container">
+    <p class="eyebrow reveal">Project Context</p>
+    <h2 class="display reveal d1">ATI Digital Front Door<br>Appointment Finder</h2>
+    <div class="red-rule reveal d1"></div>
+    <p class="section-lede reveal d2">ATI Physical Therapy operates 900+ clinics. Agents booked sessions using spreadsheets and manual coordination causing delays, data gaps, and scheduling conflicts.</p>
+
+    <div class="context-meta reveal d2">
+      <div>
+        <div class="label">Client</div>
+        <div class="value">ATI Physical Therapy</div>
+      </div>
+      <div>
+        <div class="label">Platform</div>
+        <div class="value">Agent Webapp (v1.0)</div>
+      </div>
+      <div>
+        <div class="label">My Role</div>
+        <div class="value">Lead UX Designer</div>
+      </div>
+    </div>
+
+    <div class="context-board reveal d3">
+      <img src="ati_assets/project-kanban.png" alt="ATI Project · initial brainstorm board" />
+      <div class="caption">Initial brainstorm: vision, assumptions, questions, scope</div>
+    </div>
+
+    <div class="scope-bar reveal d3">
+      <span class="lab">My Scope</span>
+      <span>Product thinking, workflow definition, brainstorming, wire framing, high-fidelity UI, interaction design, map integration, confirmation flows, notification system, design dev handoff</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROBLEM (slide 3) ============ -->
+<section id="problem">
+  <div class="container">
+    <p class="eyebrow reveal">The Problem</p>
+    <h2 class="display reveal d1">The Impact of This Project</h2>
+    <div class="red-rule reveal d1"></div>
+
+    <div class="problem-list" style="margin-top: 30px;">
+      <div class="problem-item reveal d1">
+        <h4>Fragmented Tools</h4>
+        <p>Agents juggled spreadsheets, phone logs, and manual clinic coordination no single source of truth.</p>
+      </div>
+      <div class="problem-item reveal d2">
+        <h4>Slow Discovery</h4>
+        <p>Finding slots across 900+ clinics was manual. No way to compare options or filter by preference.</p>
+      </div>
+      <div class="problem-item reveal d3">
+        <h4>Missing Patient Data</h4>
+        <p>Information scattered across systems. No consolidated profile with history, documents, preferences.</p>
+      </div>
+      <div class="problem-item reveal d4">
+        <h4>Double Booking Risk</h4>
+        <p>No real time slot visibility. Agents couldn't verify if a slot was already taken before confirming.</p>
+      </div>
+      <div class="problem-item reveal d5">
+        <h4>Lack of Automated Reminders</h4>
+        <p>Manual phone calls for confirmations and reminders. High rate of missed appointments.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RESEARCH (slide 4) ============ -->
+<section id="research">
+  <div class="container">
+    <p class="eyebrow reveal">Research &amp; Discovery</p>
+    <h2 class="display reveal d1">How We Uncovered the Real Problems</h2>
+    <div class="red-rule reveal d1"></div>
+    <p class="section-lede reveal d2">Before designing any screens, I invested time understanding the existing workflow through direct observation and stakeholder conversations. This shaped every design decision that followed.</p>
+
+    <div class="research-list">
+      <div class="research-item reveal d1">
+        <h4><span class="ic chat"></span> Agent Interviews</h4>
+        <p>Conducted sessions with scheduling agents to understand how they currently coordinate appointments across 900+ clinics. Agents described switching between 4-5 tools per booking.</p>
+        <p class="quote">"I have to copy patient info from one screen, open a spreadsheet, call the clinic, then log everything again."</p>
+      </div>
+      <div class="research-item reveal d2">
+        <h4><span class="ic eye"></span> Workflow Shadowing</h4>
+        <p>Observed agents during live scheduling calls to identify friction points in real time. Documented the exact sequence of tools and manual steps they used.</p>
+        <p class="quote">"Sometimes I book a slot, and 10 minutes later find out someone else already took it."</p>
+      </div>
+      <div class="research-item reveal d3">
+        <h4><span class="ic people"></span> Stakeholder Alignment</h4>
+        <p>Worked with product and engineering to map system constraints, data sources, and API capabilities. Documented 9 critical questions that shaped the v1 scope.</p>
+        <p class="quote">"We need to know what data the system can surface in real-time vs what requires a manual lookup."</p>
+      </div>
+    </div>
+
+    <div class="insight-callout reveal d4">
+      <span class="lab">Key Insight:</span>The core problem wasn't "agents need a new tool" it was "agents can't see availability and patient data in same place." This reframed the entire product around a unified scheduling view.
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6-STEP FLOW (slide 5) ============ -->
+<section id="flow">
+  <div class="container">
+    <p class="eyebrow reveal">Scheduling Workflow</p>
+    <h2 class="display reveal d1">6 Step Agent Booking Flow</h2>
+    <div class="red-rule reveal d1"></div>
+
+    <div class="flow-grid" style="margin-top: 40px;">
+      <div class="flow-step reveal d1">
+        <div class="flow-icon">
+          <svg viewBox="0 0 56 56" fill="currentColor"><circle cx="22" cy="22" r="13" fill="none" stroke="currentColor" stroke-width="5"/><line x1="32" y1="32" x2="48" y2="48" stroke="currentColor" stroke-width="6" stroke-linecap="round"/></svg>
+        </div>
+        <h5>Patient Search</h5>
+        <p class="step-desc">Name, ID,<br>phone</p>
+      </div>
+      <div class="flow-step reveal d2">
+        <div class="flow-icon">
+          <svg viewBox="0 0 56 56" fill="currentColor"><path d="M28 12C16 12 6 28 6 28s10 16 22 16 22-16 22-16-10-16-22-16z" fill="none" stroke="currentColor" stroke-width="5"/><circle cx="28" cy="28" r="6" fill="currentColor"/></svg>
+        </div>
+        <h5>View Profile</h5>
+        <p class="step-desc">History,<br>docs</p>
+      </div>
+      <div class="flow-step reveal d3">
+        <div class="flow-icon">
+          <svg viewBox="0 0 56 56" fill="currentColor"><path d="M8 10h40l-15 22v14l-10-4V32L8 10z"/></svg>
+        </div>
+        <h5>Set Filters</h5>
+        <p class="step-desc">Time, loc,<br>specialty</p>
+      </div>
+      <div class="flow-step reveal d4">
+        <div class="flow-icon">
+          <svg viewBox="0 0 56 56" fill="currentColor"><path d="M28 6C18 6 10 14 10 24c0 12 18 26 18 26s18-14 18-26c0-10-8-18-18-18z"/><circle cx="28" cy="22" r="6" fill="#fff"/></svg>
+        </div>
+        <h5>Explore Clinics</h5>
+        <p class="step-desc">Map, dist,<br>ratings</p>
+      </div>
+      <div class="flow-step reveal d5">
+        <div class="flow-icon">
+          <svg viewBox="0 0 56 56" fill="currentColor"><rect x="6" y="10" width="44" height="40" rx="3" fill="none" stroke="currentColor" stroke-width="5"/><line x1="6" y1="20" x2="50" y2="20" stroke="currentColor" stroke-width="5"/><line x1="16" y1="6" x2="16" y2="14" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><line x1="40" y1="6" x2="40" y2="14" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><polyline points="18,34 26,42 40,28" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h5>Select Slot</h5>
+        <p class="step-desc">Date, time,<br>clinician</p>
+      </div>
+      <div class="flow-step reveal d5">
+        <div class="flow-icon">
+          <svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="currentColor"/><polyline points="17,28 25,36 39,21" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h5>Confirm Booking</h5>
+        <p class="step-desc">Review,<br>notes</p>
+      </div>
+    </div>
+
+    <div class="approach-bar reveal d5">
+      <span class="lab">Design Approach:</span> Card View (rich context) + Table View (fast scanning). Agents pick the mode that fits their task.
+    </div>
+  </div>
+</section>
+
+<!-- ============ DESIGN SOLUTION BAND (slide 6) ============ -->
+<section class="solution-band" id="solution">
+  <div class="monitor reveal"></div>
+  <h2 class="display reveal d1">Design Solution</h2>
+  <p class="reveal d2">Screen by screen walkthrough with actual designs</p>
+  <div class="underbar reveal d2"></div>
+</section>
+
+<!-- ============ SCREENS (slides 7, 8, 10, 11, 12) ============ -->
+<section id="screens">
+  <div class="container">
+
+    <div class="screen-block reveal">
+      <div class="screen-image">
+        <img src="ati_assets/screen-1-patient-management.png" alt="Screen 1 · Patient Management" loading="lazy" />
+      </div>
+    </div>
+
+    <div class="screen-block reveal">
+      <div class="screen-image">
+        <img src="ati_assets/screen-2-profile-tabs.png" alt="Screen 2-5 · Patient Profile Tabs" loading="lazy" />
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ FINAL DESIGN EXPLORATION (slide 9) ============ -->
+<section id="explore">
+  <div class="container">
+    <p class="eyebrow reveal">Design Exploration</p>
+    <h2 class="display reveal d1">How I Arrived at the Final Design</h2>
+    <div class="red-rule reveal d1"></div>
+    <p class="section-lede reveal d2">The final UI was the result of multiple exploration cycles. Here are the key decisions that shaped the Appointment Scheduler the core screen of the platform.</p>
+
+    <div class="explore-list">
+      <div class="explore-item reveal d1">
+        <h4><span class="ic"></span> Card View vs Table View</h4>
+        <ul>
+          <li><strong>Table View:</strong> Dense grid with sortable columns. Fast for comparing 20+ slots at once, but agents lost patient context.</li>
+          <li><strong>Card View:</strong> Clinics grouped with slots nested inside. Distance and ratings visible at a glance. Agents can browse naturally.</li>
+          <li class="why"><strong>Why:</strong> Card view tested better in agent feedback sessions. Table view retained as an option for power users who prefer density.</li>
+        </ul>
+      </div>
+      <div class="explore-item reveal d2">
+        <h4><span class="ic"></span> Filter Placement: Top Bar vs Side Panel</h4>
+        <ul>
+          <li><strong>Top Bar:</strong> Horizontal filter row above results. Compact, filters were cramped with 6+ criteria. No room for patient details.</li>
+          <li><strong>Left Side Panel:</strong> Vertical filter stack with patient details below. Agents see filters AND patient context simultaneously.</li>
+          <li class="why"><strong>Why:</strong> During shadowing, agents constantly referenced patient info while filtering. Co-locating them eliminated tab-switching.</li>
+        </ul>
+      </div>
+      <div class="explore-item reveal d3">
+        <h4><span class="ic"></span> Map: Full Page vs Detail Dialog</h4>
+        <ul>
+          <li>Agents had to leave scheduling and navigate back to book.</li>
+          <li><strong>"View on Map" Dialog:</strong> Inline modal with travel info, ratings, hours, and Call Clinic CTA. Agent stays in the scheduler.</li>
+          <li class="why"><strong>Why:</strong> V1 scope required minimal flow disruption. Full-page map planned for v2 with heatmap and direct booking from pins.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Screens 6, 7, 8 -->
+    <div style="margin-top: 100px;">
+      <div class="screen-block reveal">
+        <div class="screen-image">
+          <img src="ati_assets/screen-3-scheduler.png" alt="Screen 6 · Appointment Scheduler" loading="lazy" />
+        </div>
+      </div>
+      <div class="screen-block reveal">
+        <div class="screen-image">
+          <img src="ati_assets/screen-4-map.png" alt="Screen 7 · Map View &amp; Clinic Details" loading="lazy" />
+        </div>
+      </div>
+      <div class="screen-block reveal">
+        <div class="screen-image">
+          <img src="ati_assets/screen-5-confirmation.png" alt="Screen 8 · Booking Confirmation" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ IMPACT (slide 14) ============ -->
+<section id="impact">
+  <div class="container">
+    <p class="eyebrow reveal">Impact and Outcome</p>
+    <h2 class="display reveal d1">What This Work Achieved</h2>
+    <div class="red-rule reveal d1"></div>
+
+    <div class="impact-grid" style="margin-top: 30px;">
+      <div class="impact-card reveal d1">
+        <div class="v">10+</div>
+        <div class="l">Screen Flows</div>
+        <div class="detail">Each flow designed from wireframe through high fidelity with interaction specs and dev handoff documentation.</div>
+      </div>
+      <div class="impact-card reveal d2">
+        <div class="v">~3x</div>
+        <div class="l">Faster Discovery</div>
+        <div class="detail">Replaced manual clinic-by-clinic phone lookups with real-time filtering across all locations. Agents now compare slots in seconds vs minutes.</div>
+      </div>
+      <div class="impact-card reveal d3">
+        <div class="v">900+</div>
+        <div class="l">Clinics Unified</div>
+        <div class="detail">All clinic data (availability, distance, ratings, services) consolidated into a single searchable interface previously spread across multiple tools.</div>
+      </div>
+      <div class="impact-card reveal d4">
+        <div class="v">Zero<sup>*</sup></div>
+        <div class="l">Double Bookings</div>
+        <div class="detail">*Target with soft-block feature in v2. V1 provides real-time visibility that already reduces conflicts vs spreadsheet based booking.</div>
+      </div>
+    </div>
+
+    <p class="impact-quali reveal">Qualitative Impact</p>
+    <ul class="impact-bullets">
+      <li class="reveal d1">Eliminated spreadsheet dependency agents work from a single platform</li>
+      <li class="reveal d2">Card+table dual mode matches different agent workflows and preferences</li>
+      <li class="reveal d3">Travel info + ratings drive better clinic recommendations to patients</li>
+      <li class="reveal d4">Multi-channel notifications expected to reduce missed appointment rate</li>
+      <li class="reveal d5">Platform architecture supports v2 patient self-service without rebuild</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ CLOSING FOOTER (slide 15) ============ -->
+<footer class="closing" id="closing">
+  <div class="name reveal d1">Sujithra Balasubramani</div>
+  <div class="role reveal d1">Lead Experience Designer</div>
+  <p class="pitch reveal d2">This design project exemplifies how I can benefit your business if you're interested in collaborating, please contact me :)</p>
+  <a class="linkedin-pill reveal d3" href="https://www.linkedin.com/in/sujithra-balasubramani-73b687a9/" target="_blank" rel="noopener">
+    Connect via LinkedIn <u>@Sujithra Balasubramani</u>
+  </a>
+  <div class="credit reveal d4">ATI Appointment Finder · UX Case Study</div>
+</footer>
+
+<script>
+/* Smooth interactions: scroll progress, reveal-on-scroll, section nav,
+   keyboard nav. prefers-reduced-motion honoured by CSS. */
+const progress = document.getElementById('progress');
+function tick() {
+  const h = document.documentElement;
+  const p = h.scrollTop / (h.scrollHeight - h.clientHeight);
+  progress.style.width = (p * 100) + '%';
+}
+window.addEventListener('scroll', tick, { passive: true });
+tick();
+
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+const navLinks = document.querySelectorAll('.section-nav a');
+const sections = Array.from(navLinks).map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+const navObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const idx = sections.indexOf(entry.target);
+      if (idx >= 0) navLinks.forEach((l, i) => l.classList.toggle('active', i === idx));
+    }
+  });
+}, { rootMargin: '-35% 0px -55% 0px' });
+sections.forEach(s => s && navObs.observe(s));
+
+document.addEventListener('keydown', (e) => {
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  const visible = sections.findIndex(s => {
+    const r = s.getBoundingClientRect();
+    return r.top > -50 && r.top < window.innerHeight / 2;
+  });
+  if (e.key === 'j' || e.key === 'ArrowDown') {
+    e.preventDefault();
+    const next = sections[Math.min(visible + 1, sections.length - 1)];
+    next && next.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else if (e.key === 'k' || e.key === 'ArrowUp') {
+    e.preventDefault();
+    const prev = sections[Math.max(visible - 1, 0)];
+    prev && prev.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+});
+</script>
+
+</body>
+</html>

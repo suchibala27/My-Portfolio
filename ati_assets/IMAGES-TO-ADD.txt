@@ -1,0 +1,64 @@
+ATI APPOINTMENT FINDER · ASSETS TO ADD
+=======================================================
+
+ati-case-study.html references these files. The page already shows
+clean placeholder blocks for each one until the real files are
+present, so the page is never broken.
+
+LOGO
+-------------------------------------------------------
+The ATI logo currently loads through the wsrv.nl image proxy from
+atipt.com (since atipt.com's CDN blocks direct hotlinking).
+If for any reason the proxy fails, a styled wordmark fallback
+("ATI / Physical Therapy") renders automatically.
+
+For a fully permanent version: open
+https://www.atipt.com/wp-content/uploads/2024/10/f0cadca461d9dbc05695542ca656dbf4.png
+in your browser, right-click → Save As → save as
+ati_assets/ati-logo.png — then tell me and I'll swap the proxy URL
+for the local file.
+
+GIFS (after the Design Solution section)
+-------------------------------------------------------
+Your Figma file has GIFs attached to each screen section. I could
+not fetch them automatically because my Figma MCP access hit a
+View-seat rate limit. You have two options:
+
+  A) Export them yourself from Figma (5 minutes)
+  B) Ask me again later (limit usually resets within 24 hours)
+
+To export from Figma:
+  1. Open https://www.figma.com/design/dMkJCLVTHl0Pv9TnuWcNtz/Portfolio-Assets
+  2. Navigate to node 712-10010 (ATI case study)
+  3. Find the GIF in each screen section (Patient Mgmt, Profile Tabs,
+     Scheduler, Map View, Booking Confirmation)
+  4. For each GIF: right-click the frame in Figma → "Copy/Paste as
+     Copy as image" — that won't work for GIFs because Figma exports
+     them as static PNGs.
+     Instead: click the image, then in the right sidebar look for the
+     "Open in browser" or "View source" option. Or — if the GIF was
+     placed as an image fill — right-click → "Save image as".
+  5. Save each as:
+        ati_assets/screen-1-patient-management.gif
+        ati_assets/screen-2-profile-tabs.gif
+        ati_assets/screen-3-scheduler.gif
+        ati_assets/screen-4-map.gif
+        ati_assets/screen-5-confirmation.gif
+
+The HTML already references these exact filenames. Drop them in and
+the placeholders are replaced automatically.
+
+STATIC IMAGES (fallback / if no GIF available for that section)
+-------------------------------------------------------
+If a section has only a static screenshot (no GIF), save as PNG:
+   ati_assets/screen-1-patient-management.png
+   ati_assets/screen-2-profile-tabs.png
+   ati_assets/screen-3-scheduler.png
+The HTML tries the .gif first then falls back to .png automatically.
+
+PROJECT KANBAN IMAGE (Project at a Glance section)
+-------------------------------------------------------
+   ati_assets/project-kanban.png
+Content: the colourful Kanban / brief board you have in Figma node
+712-10010, near the "ATI Digital Front Door Appointment Finder"
+sub-section. Right-click → "Save image as" from Figma.

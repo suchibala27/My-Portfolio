@@ -1,0 +1,1912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ArcOne: Designing Intelligence — UX Case Study by Sujithra Balasubramani</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   ArcOne — single-page case study
+   Faithful to Figma file dMkJCLVTHl0Pv9TnuWcNtz / node 574-40210
+   Designer: Sujithra Balasubramani
+   ============================================================ */
+
+:root {
+  --navy-darkest: #0d1031;
+  --navy-dark: #022d40;
+  --navy: #032c40;
+  --blue-mid: #216481;
+  --blue-accent: #2c80a6;
+  --blue-bg: #d0ecf9;
+  --mint: #d0f6f9;
+  --red-deep: #9b3a3a;
+  --gold: #c9a530;
+  --cream: #ffeaa5;
+  --charcoal: #282828;
+  --ink: #000;
+  --white: #fff;
+  --shadow: 0 4px 18px rgba(0, 0, 0, 0.07);
+  --shadow-lift: 0 12px 32px rgba(2, 45, 64, 0.12);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400;
+  color: var(--ink);
+  background: #fafafa;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ============ TOP BAR + PROGRESS ============ */
+.topbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+  background: var(--navy);
+  z-index: 100;
+}
+.scroll-progress {
+  position: fixed;
+  top: 6px; left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--blue-accent), var(--mint));
+  width: 0%;
+  z-index: 101;
+  transition: width 0.05s linear;
+}
+
+/* ============ SECTION NAV ============ */
+.section-nav {
+  position: fixed;
+  right: 28px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.section-nav a {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(2, 45, 64, 0.25);
+  transition: all 0.3s var(--ease);
+  position: relative;
+}
+.section-nav a:hover { background: var(--navy); transform: scale(1.4); }
+.section-nav a.active {
+  background: var(--navy);
+  transform: scale(1.6);
+  box-shadow: 0 0 0 4px rgba(2, 45, 64, 0.15);
+}
+.section-nav a::after {
+  content: attr(data-label);
+  position: absolute;
+  right: 18px; top: 50%;
+  transform: translateY(-50%) translateX(8px);
+  background: var(--navy);
+  color: var(--white);
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.25s var(--ease);
+}
+.section-nav a:hover::after { opacity: 1; transform: translateY(-50%) translateX(0); }
+
+/* ============ LAYOUT ============ */
+section { padding: 100px 80px; max-width: 1440px; margin: 0 auto; }
+.container { max-width: 1200px; margin: 0 auto; }
+
+.eyebrow {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--navy-dark);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+  display: inline-block;
+  position: relative;
+}
+.eyebrow::after {
+  content: '';
+  position: absolute;
+  bottom: -10px; left: 0;
+  width: 80px; height: 2px;
+  background: var(--navy-darkest);
+  transform-origin: left;
+  animation: lineGrow 1s var(--ease) forwards;
+}
+@keyframes lineGrow { from { width: 0; } to { width: 80px; } }
+
+.section-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 60px;
+  letter-spacing: 0.5px;
+}
+.section-subtitle {
+  font-size: 18px;
+  color: var(--charcoal);
+  margin-bottom: 40px;
+  margin-top: -40px;
+  line-height: 1.6;
+}
+
+/* ============ HERO ============ */
+.hero {
+  min-height: 100vh;
+  padding: 130px 80px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  background:
+    radial-gradient(1200px 600px at 80% 30%, rgba(208, 246, 249, 0.4), transparent 60%),
+    linear-gradient(180deg, #fff 0%, #f7fafb 100%);
+  max-width: none;
+  margin: 0;
+}
+.hero-content { max-width: 1280px; margin: 0 auto; width: 100%; position: relative; }
+.hero h1 {
+  font-size: clamp(48px, 7vw, 86px);
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--ink);
+  max-width: 791px;
+  margin: 50px 0 60px;
+  letter-spacing: -2px;
+  animation: heroSlide 1s var(--ease) 0.2s both;
+}
+.hero .underline {
+  width: 386px;
+  max-width: 50%;
+  height: 2px;
+  background: var(--navy-darkest);
+  margin-bottom: 30px;
+  animation: lineGrowWide 1.2s var(--ease) 0.6s both;
+  transform-origin: left;
+}
+@keyframes lineGrowWide { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.hero h2 {
+  font-size: 34px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  animation: heroSlide 1s var(--ease) 0.5s both;
+}
+.hero .tagline {
+  font-size: 24px;
+  font-weight: 400;
+  max-width: 876px;
+  line-height: 1.4;
+  margin-bottom: 80px;
+  animation: heroSlide 1s var(--ease) 0.7s both;
+}
+.tagline-link {
+  color: var(--blue-accent);
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 2px solid var(--blue-accent);
+  transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.tagline-link:hover { color: var(--navy-dark); border-color: var(--navy-dark); }
+.hero .designer {
+  font-size: 24px;
+  margin-top: auto;
+  animation: heroSlide 1s var(--ease) 0.9s both;
+}
+.hero .designer strong { font-weight: 700; display: block; }
+.hero .designer em { font-style: normal; font-weight: 400; }
+@keyframes heroSlide {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-logo-wrap {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 240px;
+  height: 240px;
+  border-radius: 28px;
+  background: var(--navy-darkest);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  box-shadow: 0 18px 50px rgba(2, 45, 64, 0.18);
+  animation: logoFloat 6s var(--ease) infinite;
+  overflow: hidden;
+  position: absolute;
+}
+.hero-logo-wrap::before {
+  content: '';
+  position: absolute;
+  inset: -50% -50% auto auto;
+  width: 200%; height: 200%;
+  background: radial-gradient(circle at 30% 30%, rgba(44, 128, 166, 0.35), transparent 50%);
+  animation: glow 6s var(--ease) infinite;
+}
+@keyframes glow {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+.hero-logo {
+  width: 100%;
+  height: auto;
+  position: relative;
+  z-index: 1;
+  display: block;
+}
+/* Reliable wordmark — renders regardless of CDN availability */
+.hero-logo-wrap .wordmark {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: -1.6px;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+}
+.hero-logo-wrap .wordmark .light { font-weight: 300; letter-spacing: -1px; }
+.hero-logo-wrap .wordmark .dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #2c80a6;
+  margin-left: 4px;
+  vertical-align: top;
+  margin-top: 4px;
+}
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: var(--navy-dark);
+  font-weight: 600;
+  opacity: 0.6;
+  animation: scrollBounce 2s var(--ease) infinite;
+}
+@keyframes scrollBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.6; }
+  50% { transform: translateX(-50%) translateY(8px); opacity: 1; }
+}
+
+/* ============ REVEAL ANIMATIONS ============ */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+}
+.reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal.delay-1 { transition-delay: 0.1s; }
+.reveal.delay-2 { transition-delay: 0.2s; }
+.reveal.delay-3 { transition-delay: 0.3s; }
+.reveal.delay-4 { transition-delay: 0.4s; }
+.reveal.delay-5 { transition-delay: 0.5s; }
+
+/* ============ LIVE AT ARCONE ============ */
+.live-section {
+  background: linear-gradient(180deg, #f5f8fa 0%, #fafafa 100%);
+  padding-top: 80px;
+  padding-bottom: 100px;
+  max-width: none;
+}
+.live-section .container { max-width: 1200px; margin: 0 auto; }
+.inline-link {
+  color: var(--blue-accent);
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 1.5px solid var(--blue-accent);
+  transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.inline-link:hover { color: var(--navy-dark); border-color: var(--navy-dark); }
+
+.live-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-top: 40px;
+}
+.live-card {
+  background: var(--white);
+  border-radius: 14px;
+  padding: 32px 30px;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--shadow);
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  position: relative;
+  overflow: hidden;
+  display: block;
+}
+.live-card::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 6px; height: 100%;
+  background: linear-gradient(180deg, var(--blue-accent), var(--navy-dark));
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.5s var(--ease);
+}
+.live-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lift);
+}
+.live-card:hover::after { transform: scaleY(1); }
+.live-card-eyebrow {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--blue-accent);
+  font-weight: 700;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.live-card-eyebrow::before {
+  content: '';
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #2ecc71;
+  box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.6);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.5); }
+  70% { box-shadow: 0 0 0 8px rgba(46, 204, 113, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+}
+.live-card-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--navy-dark);
+  margin-bottom: 8px;
+}
+.live-card-tag {
+  font-size: 16px;
+  color: var(--charcoal);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+.live-card-metrics {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+.live-card-metrics span {
+  font-size: 13px;
+  color: var(--charcoal);
+  background: var(--blue-bg);
+  padding: 6px 12px;
+  border-radius: 16px;
+}
+.live-card-metrics strong { color: var(--navy-dark); font-weight: 700; }
+.live-card-arrow {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--navy-dark);
+  letter-spacing: 0.5px;
+  transition: transform 0.3s var(--ease);
+  display: inline-block;
+}
+.live-card:hover .live-card-arrow { transform: translateX(6px); }
+
+@media (max-width: 980px) {
+  .live-grid { grid-template-columns: 1fr; }
+}
+
+/* ============ AT A GLANCE ============ */
+.glance-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+.glance-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.glance-item {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 20px;
+  align-items: baseline;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #e5e9ec;
+  transition: padding-left 0.4s var(--ease);
+}
+.glance-item:hover { padding-left: 8px; }
+.glance-label {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--blue-accent);
+}
+.glance-value { font-size: 17px; color: var(--ink); line-height: 1.5; }
+
+.honest-truth {
+  background: var(--ink);
+  color: var(--white);
+  padding: 50px 45px;
+  border-radius: 14px;
+  position: relative;
+  overflow: hidden;
+}
+.honest-truth::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(135deg, var(--gold), transparent);
+  z-index: 0;
+  opacity: 0.08;
+}
+.honest-truth h3 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 1;
+}
+.honest-truth p {
+  font-size: 18px;
+  line-height: 1.7;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 16px;
+}
+.honest-truth p:last-child { margin-bottom: 0; }
+
+/* ============ SECTION DIVIDER ============ */
+.section-divider {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--navy-dark);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 60px 0 40px;
+}
+.section-divider::after {
+  content: '';
+  flex: 1;
+  height: 1.5px;
+  background: linear-gradient(90deg, var(--navy-dark), transparent);
+}
+
+/* ============ BRIEF (4 cards) ============ */
+.brief-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+.brief-card {
+  background: var(--white);
+  border-radius: 10px;
+  padding: 30px 28px;
+  box-shadow: var(--shadow);
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+.brief-card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 5px;
+  background: var(--navy);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.5s var(--ease);
+}
+.brief-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lift);
+}
+.brief-card:hover::before { transform: scaleY(1); }
+.brief-card h4 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: var(--ink);
+}
+.brief-card h4 span.num {
+  color: var(--blue-accent);
+  margin-right: 8px;
+}
+.brief-card p { font-size: 16px; color: var(--charcoal); line-height: 1.6; }
+
+/* ============ PERSONAS ============ */
+.personas-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+.persona {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 30px 26px;
+  box-shadow: var(--shadow);
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  position: relative;
+}
+.persona:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lift);
+}
+.persona-avatar {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--white);
+  margin-bottom: 24px;
+  transition: transform 0.5s var(--ease);
+}
+.persona:hover .persona-avatar { transform: scale(1.08) rotate(-3deg); }
+.persona-avatar.sc { background: var(--blue-mid); }
+.persona-avatar.dr { background: var(--blue-accent); }
+.persona-avatar.km { background: var(--navy-darkest); }
+.persona-name { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.persona-role { font-size: 16px; font-style: italic; color: var(--charcoal); font-weight: 300; margin-bottom: 22px; }
+.persona-label {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin: 18px 0 8px;
+  color: var(--navy);
+}
+.persona p { font-size: 15px; line-height: 1.55; color: var(--ink); }
+.persona-quote {
+  font-style: italic;
+  font-weight: 300;
+  font-size: 15px;
+  margin-top: 22px;
+  padding-top: 22px;
+  border-top: 1px solid #eef2f5;
+  color: var(--charcoal);
+  line-height: 1.55;
+}
+
+/* ============ USER FLOW ============ */
+.flow-wrap {
+  background: var(--white);
+  padding: 50px 40px;
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+}
+.flow-caption {
+  font-size: 16px;
+  color: var(--charcoal);
+  margin-bottom: 14px;
+}
+.flow-methodology {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy-dark);
+  margin-bottom: 35px;
+  letter-spacing: 1px;
+}
+.flow-steps {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.flow-step {
+  flex: 1;
+  min-width: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  padding-top: 14px;
+}
+.flow-step::after {
+  content: '';
+  position: absolute;
+  top: 38px;
+  right: -8px;
+  width: 16px;
+  height: 2px;
+  background: var(--blue-accent);
+}
+.flow-step:last-child::after { display: none; }
+.flow-num {
+  width: 50px; height: 50px;
+  border-radius: 50%;
+  background: var(--blue-accent);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 12px;
+  transition: transform 0.4s var(--ease), background 0.4s var(--ease);
+}
+.flow-step:hover .flow-num {
+  transform: scale(1.15);
+  background: var(--navy-dark);
+}
+.flow-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+.flow-desc { font-size: 12px; color: var(--charcoal); line-height: 1.4; }
+
+.flow-pills {
+  display: flex;
+  gap: 12px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+.pill {
+  background: var(--navy-dark);
+  color: var(--white);
+  padding: 10px 28px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  transition: transform 0.3s var(--ease), background 0.3s var(--ease);
+}
+.pill:hover { transform: translateY(-3px); background: var(--blue-accent); }
+
+.flow-note {
+  font-size: 14px;
+  color: var(--charcoal);
+  font-style: italic;
+  margin-top: 22px;
+}
+
+/* ============ INFORMATION ARCHITECTURE ============ */
+.ia-shell {
+  background: var(--navy-dark);
+  color: var(--white);
+  padding: 22px 30px;
+  border-radius: 8px 8px 0 0;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-align: center;
+}
+.ia-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-radius: 0 0 8px 8px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.ia-col {
+  background: var(--white);
+  padding: 35px 30px;
+}
+.ia-col + .ia-col { border-left: 2px solid var(--navy-dark); }
+.ia-col h4 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--navy-dark);
+  margin-bottom: 24px;
+  text-align: center;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--blue-bg);
+}
+.ia-group { margin-bottom: 20px; }
+.ia-group-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--blue-accent);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.ia-group ul { list-style: none; }
+.ia-group li {
+  font-size: 14px;
+  padding: 6px 0 6px 18px;
+  position: relative;
+  color: var(--charcoal);
+  transition: padding-left 0.3s var(--ease), color 0.3s var(--ease);
+}
+.ia-group li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: var(--blue-accent);
+  font-weight: 700;
+}
+.ia-group li:hover { padding-left: 22px; color: var(--ink); }
+
+/* ============ DECISIONS (4 cards) ============ */
+.decisions-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.decision-card {
+  background: var(--cream);
+  border-radius: 10px;
+  padding: 32px 30px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s var(--ease);
+}
+.decision-card:nth-child(even) { background: var(--blue-bg); }
+.decision-card:hover { transform: translateY(-5px); }
+.decision-card h4 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 18px;
+}
+.decision-line {
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 12px;
+  color: var(--ink);
+}
+.decision-line strong {
+  display: inline-block;
+  background: var(--ink);
+  color: var(--white);
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  margin-right: 8px;
+  font-weight: 700;
+}
+.decision-card:nth-child(2) .decision-line strong,
+.decision-card:nth-child(4) .decision-line strong { background: var(--navy-dark); }
+
+/* ============ DESIGN PROCESS TIMELINE ============ */
+.timeline {
+  position: relative;
+  padding-left: 50px;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 18px; top: 8px; bottom: 8px;
+  width: 3px;
+  background: linear-gradient(180deg, var(--blue-accent), var(--navy-dark));
+}
+.timeline-item {
+  position: relative;
+  padding-bottom: 38px;
+}
+.timeline-item:last-child { padding-bottom: 0; }
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -42px; top: 6px;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 3px solid var(--blue-accent);
+  transition: transform 0.4s var(--ease), border-color 0.4s var(--ease);
+}
+.timeline-item:hover::before { transform: scale(1.3); border-color: var(--navy-dark); }
+.timeline-week {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--blue-accent);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.timeline-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--ink);
+}
+.timeline-desc { font-size: 15px; line-height: 1.6; color: var(--charcoal); }
+
+/* ============ KEY SCREENS ============ */
+.screens-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+.screen-col h4 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--navy-dark);
+  margin-bottom: 18px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--blue-bg);
+  letter-spacing: 1px;
+}
+.screen-list { display: flex; flex-direction: column; gap: 14px; }
+.screen-card {
+  background: var(--navy-dark);
+  color: var(--white);
+  padding: 18px 22px;
+  border-radius: 8px;
+  cursor: default;
+  transition: transform 0.3s var(--ease), background 0.3s var(--ease);
+}
+.screen-card:hover { transform: translateX(6px); background: var(--blue-mid); }
+.screen-card h5 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.screen-card p { font-size: 13px; opacity: 0.85; line-height: 1.4; }
+
+/* ============ MEASURABLE IMPACT ============ */
+.impact-wrap { display: flex; flex-direction: column; gap: 36px; }
+.impact-block .impact-label {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+  color: var(--blue-accent);
+  text-transform: uppercase;
+}
+.impact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.impact-card {
+  background: var(--blue-bg);
+  border-radius: 10px;
+  padding: 36px 28px;
+  text-align: center;
+  box-shadow: 0 4px 2px rgba(0, 0, 0, 0.05);
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+.impact-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(2, 45, 64, 0.18);
+}
+.impact-card .up-to {
+  font-size: 14px;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+.impact-number {
+  font-size: 45px;
+  font-weight: 800;
+  color: var(--navy-dark);
+  line-height: 1;
+  margin-bottom: 14px;
+  font-variant-numeric: tabular-nums;
+}
+.impact-desc { font-size: 14px; color: var(--ink); line-height: 1.4; }
+.impact-source {
+  font-size: 13px;
+  color: var(--charcoal);
+  text-align: center;
+  margin-top: 24px;
+  font-style: italic;
+}
+.impact-source a { color: var(--blue-accent); text-decoration: none; font-weight: 600; border-bottom: 1px solid var(--blue-accent); }
+.impact-source a:hover { color: var(--navy-dark); border-color: var(--navy-dark); }
+
+/* ============ WHAT I'D DO DIFFERENTLY ============ */
+.differently-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.differently-card {
+  background: var(--white);
+  border-radius: 6px;
+  padding: 30px 50px;
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 30px;
+  align-items: center;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+.differently-card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 18px;
+  background: var(--navy-dark);
+}
+.differently-card:hover {
+  transform: translateX(6px);
+  box-shadow: var(--shadow-lift);
+}
+.differently-num {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--ink);
+  padding-left: 14px;
+}
+.differently-content h4 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.differently-content p {
+  font-size: 16px;
+  color: var(--charcoal);
+  line-height: 1.6;
+}
+
+.closing-quote {
+  background: var(--ink);
+  color: var(--white);
+  padding: 28px 38px;
+  border-radius: 6px;
+  font-size: 22px;
+  font-style: italic;
+  font-weight: 300;
+  margin-top: 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.closing-quote::before {
+  content: '"';
+  position: absolute;
+  left: 14px; top: -12px;
+  font-size: 120px;
+  font-family: Georgia, serif;
+  color: var(--blue-accent);
+  opacity: 0.3;
+  line-height: 1;
+}
+
+/* ============ SCREEN MOCKUPS ============ */
+.process-screen {
+  background: var(--white);
+  border-radius: 14px;
+  padding: 50px 60px;
+  margin-bottom: 40px;
+  box-shadow: var(--shadow);
+}
+.process-screen-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--navy-dark);
+  letter-spacing: 6px;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+.process-screen-rule {
+  height: 2px;
+  background: var(--navy-darkest);
+  width: 60%;
+  margin-bottom: 36px;
+}
+.process-screen-row {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  gap: 30px;
+  align-items: start;
+}
+.process-screen-image {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 22px rgba(2, 45, 64, 0.12);
+  transition: transform 0.5s var(--ease);
+  background: #f0f4f7;
+  aspect-ratio: 700 / 600;
+  position: relative;
+}
+.process-screen-image:hover { transform: scale(1.02); }
+.process-screen-image img {
+  width: 100%; height: 100%; display: block;
+  object-fit: cover;
+}
+.process-screen-divider {
+  width: 1px;
+  background: var(--ink);
+  align-self: stretch;
+}
+.process-screen-desc {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--ink);
+  padding-top: 8px;
+}
+
+/* ============ FOOTER ============ */
+footer {
+  background: var(--navy-darkest);
+  color: var(--white);
+  padding: 80px 80px 60px;
+  text-align: center;
+  margin-top: 80px;
+}
+footer .footer-logo {
+  width: 140px;
+  height: auto;
+  margin: 0 auto 26px;
+  display: block;
+  opacity: 0.95;
+}
+footer .footer-logo-mark {
+  color: #fff;
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  line-height: 1;
+  margin: 0 auto 26px;
+  text-align: center;
+}
+footer .footer-logo-mark .light { font-weight: 300; }
+footer .footer-logo-mark .dot {
+  display: inline-block;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: #2c80a6;
+  margin-left: 3px;
+  vertical-align: top;
+  margin-top: 3px;
+}
+footer .signoff {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+footer .role {
+  font-size: 15px;
+  opacity: 0.7;
+  margin-bottom: 28px;
+}
+footer .cta {
+  display: inline-block;
+  padding: 14px 32px;
+  border: 1.5px solid var(--white);
+  border-radius: 4px;
+  color: var(--white);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: all 0.35s var(--ease);
+  margin-top: 14px;
+}
+footer .cta:hover {
+  background: var(--white);
+  color: var(--navy-darkest);
+  letter-spacing: 3px;
+}
+footer .meta {
+  font-size: 12px;
+  opacity: 0.5;
+  margin-top: 30px;
+  letter-spacing: 1px;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 980px) {
+  section { padding: 80px 28px; }
+  .hero { padding: 110px 28px 60px; }
+  .hero-logo { width: 160px; height: 160px; }
+  .glance-grid,
+  .brief-grid,
+  .decisions-grid,
+  .ia-cols,
+  .personas-grid,
+  .screens-wrapper,
+  .impact-grid,
+  .process-screen-row { grid-template-columns: 1fr; }
+  .ia-col + .ia-col { border-left: none; border-top: 2px solid var(--navy-dark); }
+  .process-screen-divider { display: none; }
+  .section-nav { display: none; }
+  .flow-step { min-width: 100px; }
+  .flow-step::after { display: none; }
+}
+
+.back-to-portfolio {
+  position: fixed;
+  top: 22px;
+  left: 28px;
+  z-index: 200;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  color: #fff;
+  background: rgba(13, 16, 49, 0.85);
+  padding: 9px 18px;
+  border-radius: 22px;
+  text-decoration: none;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 14px rgba(13, 16, 49, 0.18);
+  transition: transform 0.3s ease, background 0.3s ease, padding 0.3s ease;
+}
+.back-to-portfolio .arr { transition: transform 0.3s ease; display: inline-block; }
+.back-to-portfolio:hover { background: #0d1031; transform: translateX(-2px); }
+.back-to-portfolio:hover .arr { transform: translateX(-3px); }
+@media (max-width: 640px) {
+  .back-to-portfolio { font-size: 12px; padding: 7px 14px; top: 14px; left: 14px; }
+}
+</style>
+</head>
+<body>
+<a class="back-to-portfolio" href="index.html"><span class="arr">&larr;</span> Sujithra Balasubramani</a>
+
+
+<div class="topbar"></div>
+<div class="scroll-progress" id="progress"></div>
+
+<nav class="section-nav" aria-label="Section navigation">
+  <a href="#hero" data-label="Intro" class="active"></a>
+  <a href="#live" data-label="Live at ArcOne"></a>
+  <a href="#glance" data-label="At a Glance"></a>
+  <a href="#brief" data-label="The Brief"></a>
+  <a href="#personas" data-label="Personas"></a>
+  <a href="#flows" data-label="User Flows"></a>
+  <a href="#ia" data-label="Architecture"></a>
+  <a href="#decisions" data-label="Decisions"></a>
+  <a href="#process" data-label="Process"></a>
+  <a href="#screens" data-label="Key Screens"></a>
+  <a href="#impact" data-label="Impact"></a>
+  <a href="#differently" data-label="Reflection"></a>
+  <a href="#screens-design" data-label="Final Screens"></a>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <span class="eyebrow">UX Case Study</span>
+    <div class="hero-logo-wrap" aria-label="ArcOne logo">
+      <img class="hero-logo"
+           src="https://wsrv.nl/?url=cdn.prod.website-files.com%2F67ab637408cdeea548981c89%2F67b73e1c7827c343eb5e39d0_80c06ca3b9807e9beae5664dfa390267_arcone_logo_rev.svg&w=320&output=png"
+           alt="ArcOne logo"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+      <div class="wordmark" style="display:none;"><span class="light">arc</span>One<span class="dot"></span></div>
+    </div>
+    <h1>ArcOne: Designing Intelligence</h1>
+    <div class="underline"></div>
+    <p class="tagline">How I Turned a Phone Call Into Two AI-Powered Enterprise Products — Now Live at <a href="https://www.arcone.com" target="_blank" rel="noopener" class="tagline-link">arcone.com</a></p>
+    <h2>UX &amp; UI Case Study</h2>
+    <div class="designer">
+      <strong>Sujithra Balasubramani</strong>
+      <em>Lead Product Designer | Chennai</em>
+    </div>
+  </div>
+  <div class="scroll-hint">SCROLL ↓</div>
+</section>
+
+<!-- ============ LIVE AT ARCONE (context) ============ -->
+<section id="live" class="live-section">
+  <div class="container">
+    <span class="eyebrow reveal">About the Client · Where the work lives</span>
+    <h2 class="section-title reveal">Revenue Intelligence. Reimagined.</h2>
+    <p class="section-subtitle reveal">
+      <a href="https://www.arcone.com" target="_blank" rel="noopener" class="inline-link">ArcOne</a> is an AI-powered
+      revenue intelligence platform for banking, energy &amp; utilities — trusted by leading banks like
+      Bank of America, TD Bank, and Western Union. The two products I designed end-to-end now ship as part
+      of their core offering.
+    </p>
+    <div class="live-grid">
+      <a href="https://www.arcone.com/experience360" target="_blank" rel="noopener" class="live-card reveal delay-1">
+        <div class="live-card-eyebrow">Now Live · arcone.com</div>
+        <h3 class="live-card-title">Experience360™</h3>
+        <p class="live-card-tag">AI Agents that transform the customer journey.</p>
+        <div class="live-card-metrics">
+          <span><strong>40%</strong> ↓ Call Volume</span>
+          <span><strong>25%</strong> Faster Resolution</span>
+          <span><strong>90%</strong> CSAT</span>
+        </div>
+        <span class="live-card-arrow">View live →</span>
+      </a>
+      <a href="https://www.arcone.com/exceptions360" target="_blank" rel="noopener" class="live-card reveal delay-2">
+        <div class="live-card-eyebrow">Now Live · arcone.com</div>
+        <h3 class="live-card-title">Exceptions360™</h3>
+        <p class="live-card-tag">AI Agents that optimize the meter-to-cash journey.</p>
+        <div class="live-card-metrics">
+          <span><strong>$2.5M+</strong> Annual Revenue Recovered</span>
+          <span><strong>50%</strong> Faster Resolution</span>
+          <span><strong>95%</strong> CSAT</span>
+        </div>
+        <span class="live-card-arrow">View live →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE PROJECT AT A GLANCE ============ -->
+<section id="glance">
+  <div class="container">
+    <span class="eyebrow reveal">The Project at a Glance</span>
+    <h2 class="section-title reveal">A snapshot of the engagement.</h2>
+    <div class="glance-grid">
+      <div class="glance-list reveal">
+        <div class="glance-item">
+          <span class="glance-label">Client</span>
+          <span class="glance-value">ArcOne — Revenue Intelligence for regulated industries</span>
+        </div>
+        <div class="glance-item">
+          <span class="glance-label">Products</span>
+          <span class="glance-value">Experience360™ &amp; Exceptions360™</span>
+        </div>
+        <div class="glance-item">
+          <span class="glance-label">My Role</span>
+          <span class="glance-value">Lead Designer — end-to-end UX &amp; UI</span>
+        </div>
+        <div class="glance-item">
+          <span class="glance-label">Industry</span>
+          <span class="glance-value">Enterprise B2B SaaS (Banking, Energy &amp; Utilities)</span>
+        </div>
+        <div class="glance-item">
+          <span class="glance-label">Deliverables</span>
+          <span class="glance-value">Personas, user flows, IA, wireframes, dev-ready UI</span>
+        </div>
+        <div class="glance-item">
+          <span class="glance-label">Live At</span>
+          <span class="glance-value">
+            <a href="https://www.arcone.com/experience360" target="_blank" rel="noopener" class="inline-link">arcone.com/experience360</a>
+            <br />
+            <a href="https://www.arcone.com/exceptions360" target="_blank" rel="noopener" class="inline-link">arcone.com/exceptions360</a>
+          </span>
+        </div>
+      </div>
+      <div class="honest-truth reveal delay-2">
+        <h3>The honest truth:</h3>
+        <p>There was no product requirements document. No user research repository. No design system to inherit.</p>
+        <p>The client explained their vision over a single phone call, and my job was to turn that conversation into two fully realised enterprise products.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE BRIEF ============ -->
+<section id="brief">
+  <div class="container">
+    <span class="eyebrow reveal">The Brief</span>
+    <h2 class="section-title reveal">Four constraints I had to design around.</h2>
+    <div class="brief-grid">
+      <div class="brief-card reveal delay-1">
+        <h4><span class="num">01</span>No Documentation</h4>
+        <p>What I received: one long, dense, jargon-heavy phone call about multi-agent AI systems, meter-to-cash lifecycles, and revenue intelligence for regulated industries.</p>
+      </div>
+      <div class="brief-card reveal delay-2">
+        <h4><span class="num">02</span>Heavy Domain Complexity</h4>
+        <p>Enterprise billing exceptions, multi-agent AI orchestration and regulated-industry compliance — a knowledge stack I had to internalise before a single pixel could be drawn.</p>
+      </div>
+      <div class="brief-card reveal delay-3">
+        <h4><span class="num">03</span>Two Products at Once</h4>
+        <p>What I received: one long, dense, jargon-heavy phone call about multi-agent AI systems, meter-to-cash lifecycles, and revenue intelligence for regulated industries.</p>
+      </div>
+      <div class="brief-card reveal delay-4">
+        <h4><span class="num">04</span>Zero User Access</h4>
+        <p>No interviews, no shadowing sessions. Personas built from domain inference.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PERSONAS ============ -->
+<section id="personas">
+  <div class="container">
+    <span class="eyebrow reveal">Personas Built from Domain Inference</span>
+    <h2 class="section-title reveal">Three users I designed for — without ever speaking to them.</h2>
+    <div class="personas-grid">
+      <div class="persona reveal delay-1">
+        <div class="persona-avatar sc">SC</div>
+        <div class="persona-name">Sarah Chen</div>
+        <div class="persona-role">Revenue Operations Manager</div>
+        <div class="persona-label">CONTEXT</div>
+        <p>Manages 50,000+ billing exceptions monthly across 3 disconnected systems</p>
+        <div class="persona-label">PAIN POINT</div>
+        <p>Spends 60% of her week triaging instead of resolving. Revenue leakage reports always late.</p>
+        <div class="persona-quote">“I need something that tells me which fire to put out first.”</div>
+      </div>
+      <div class="persona reveal delay-2">
+        <div class="persona-avatar dr">DR</div>
+        <div class="persona-name">David Ramirez</div>
+        <div class="persona-role">Sr. Customer Service Rep</div>
+        <div class="persona-label">CONTEXT</div>
+        <p>Handles 80+ calls/day, toggles between 4 systems for a single billing question</p>
+        <div class="persona-label">PAIN POINT</div>
+        <p>No unified customer view. Average handle time: 12 min. Escalations for self-service issues.</p>
+        <div class="persona-quote">“By the time I pull up their account… the customer is already frustrated.”</div>
+      </div>
+      <div class="persona reveal delay-3">
+        <div class="persona-avatar km">KM</div>
+        <div class="persona-name">Karen Mitchell</div>
+        <div class="persona-role">VP Revenue &amp; Customer Ops</div>
+        <div class="persona-label">CONTEXT</div>
+        <p>Responsible for $2B+ annual revenue. Regulatory audits keep her up at night.</p>
+        <div class="persona-label">PAIN POINT</div>
+        <p>Can't quantify leakage. Board wants AI but needs proof it's secure and compliant.</p>
+        <div class="persona-quote">“Show me the money we're leaving on the table.”</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ USER FLOWS ============ -->
+<section id="flows">
+  <div class="container">
+    <span class="eyebrow reveal">User Flow — Experience360™</span>
+    <h2 class="section-title reveal">The Customer Journey: From Entry to Resolution.</h2>
+    <div class="flow-wrap reveal">
+      <p class="flow-caption">AI Agents that transform the customer journey.</p>
+      <p class="flow-methodology">The Experience360™ Methodology — From Static to Responsive Engagement</p>
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="flow-num">1</div>
+          <div class="flow-label">Customer Access</div>
+          <div class="flow-desc">Multi-channel entry point</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">2</div>
+          <div class="flow-label">LYZA Activates</div>
+          <div class="flow-desc">AI assistant joins the journey</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">3</div>
+          <div class="flow-label">Self-Service First</div>
+          <div class="flow-desc">Guided recommendations</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">4</div>
+          <div class="flow-label">Escalation Path</div>
+          <div class="flow-desc">Seamless human handoff</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">5</div>
+          <div class="flow-label">CSR Resolution</div>
+          <div class="flow-desc">Unified context handoff</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">6</div>
+          <div class="flow-label">Insight Loop</div>
+          <div class="flow-desc">Feedback fuels personalization</div>
+        </div>
+      </div>
+      <div class="flow-pills">
+        <span class="pill">Predict</span>
+        <span class="pill">Personalise</span>
+        <span class="pill">Recommend</span>
+        <span class="pill">Respond</span>
+      </div>
+      <p class="flow-note">Prioritisation ranked by revenue impact.</p>
+    </div>
+
+    <div style="height: 60px;"></div>
+
+    <span class="eyebrow reveal">User Flow — Exceptions360™</span>
+    <h2 class="section-title reveal">The Operator Journey: From Anomaly to Audit.</h2>
+    <div class="flow-wrap reveal">
+      <p class="flow-caption">AI Agents that optimize the meter-to-cash journey.</p>
+      <p class="flow-methodology">The Exceptions360™ Methodology — From Reactive to Proactive</p>
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="flow-num">1</div>
+          <div class="flow-label">Detect</div>
+          <div class="flow-desc">Proactively identifies disruptions likely to trigger exceptions</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">2</div>
+          <div class="flow-label">Prioritize</div>
+          <div class="flow-desc">Ranks exceptions by trigger, circumstance &amp; anomaly</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">3</div>
+          <div class="flow-label">Resolve</div>
+          <div class="flow-desc">Guided step-by-step resolution with explanations</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">4</div>
+          <div class="flow-label">Copilot → Autopilot</div>
+          <div class="flow-desc">Human confirms, then AI automates with audit trail</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">5</div>
+          <div class="flow-label">Forecast</div>
+          <div class="flow-desc">Prevents future spikes through intelligent automation</div>
+        </div>
+      </div>
+      <div class="flow-pills">
+        <span class="pill">Detect</span>
+        <span class="pill">Prioritize</span>
+        <span class="pill">Resolve</span>
+        <span class="pill">Forecast</span>
+      </div>
+      <p class="flow-note">Compliance &amp; audit trail captured at every step.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INFORMATION ARCHITECTURE ============ -->
+<section id="ia">
+  <div class="container">
+    <span class="eyebrow reveal">Information Architecture</span>
+    <h2 class="section-title reveal">One shared shell. Two specialised product spines.</h2>
+    <div class="reveal">
+      <div class="ia-shell">Shared Navigation Shell · Left Sidebar + Top Bar + LYZA AI Access + Breadcrumbs</div>
+      <div class="ia-cols">
+        <div class="ia-col">
+          <h4>Experience360™</h4>
+          <div class="ia-group">
+            <div class="ia-group-label">Customer Self-Service Portal</div>
+            <ul>
+              <li>Dashboard &amp; Billing Transparency</li>
+              <li>Usage Analytics &amp; Recommendations</li>
+              <li>LYZA AI Chat</li>
+            </ul>
+          </div>
+          <div class="ia-group">
+            <div class="ia-group-label">CSR Agent Workspace</div>
+            <ul>
+              <li>Call Context Panel</li>
+              <li>Customer 360 View</li>
+              <li>AI-Suggested Actions</li>
+            </ul>
+          </div>
+          <div class="ia-group">
+            <div class="ia-group-label">Intelligence Hub</div>
+            <ul>
+              <li>Engagement Analytics</li>
+              <li>Satisfaction Trends</li>
+            </ul>
+          </div>
+        </div>
+        <div class="ia-col">
+          <h4>Exceptions360™</h4>
+          <div class="ia-group">
+            <div class="ia-group-label">Exception Queue (Primary)</div>
+            <ul>
+              <li>Smart Filters &amp; AI Priority</li>
+              <li>Table + Card Toggle</li>
+              <li>Severity Color Coding</li>
+            </ul>
+          </div>
+          <div class="ia-group">
+            <div class="ia-group-label">Exception Detail &amp; Resolution</div>
+            <ul>
+              <li>Root Cause Analysis</li>
+              <li>Guided Resolution Steps</li>
+              <li>Copilot/Autopilot Toggle</li>
+            </ul>
+          </div>
+          <div class="ia-group">
+            <div class="ia-group-label">Analytics &amp; Forecasting</div>
+            <ul>
+              <li>Trend &amp; Volume Prediction</li>
+              <li>Compliance &amp; Audit</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ KEY DESIGN DECISIONS ============ -->
+<section id="decisions">
+  <div class="container">
+    <span class="eyebrow reveal">Key Design Decisions &amp; Trade-offs</span>
+    <h2 class="section-title reveal">Where I held the tension — and what I chose.</h2>
+    <div class="decisions-grid">
+      <div class="decision-card reveal delay-1">
+        <h4>Density vs. Clarity</h4>
+        <p class="decision-line"><strong>TENSION</strong>Enterprise users want data density. New users need breathing room.</p>
+        <p class="decision-line"><strong>RESOLUTION</strong>Medium-density default with compact toggle. Power users can increase density once comfortable.</p>
+      </div>
+      <div class="decision-card reveal delay-2">
+        <h4>AI Visibility Spectrum</h4>
+        <p class="decision-line"><strong>TENSION</strong>Client wanted AI to feel central. Enterprise users distrust AI with revenue decisions.</p>
+        <p class="decision-line"><strong>RESOLUTION</strong>Copilot-to-autopilot model. AI suggestions visible and explainable. Human confirmation by default.</p>
+      </div>
+      <div class="decision-card reveal delay-3">
+        <h4>Two Products, One Language</h4>
+        <p class="decision-line"><strong>TENSION</strong>Different users and emotional tones, but must clearly belong to the same family.</p>
+        <p class="decision-line"><strong>RESOLUTION</strong>Shared components &amp; type scale. Experience360 warmer blues. Exceptions360 severity-coded colours.</p>
+      </div>
+      <div class="decision-card reveal delay-4">
+        <h4>The LYZA AI Assistant</h4>
+        <p class="decision-line"><strong>TENSION</strong>Sidebar ate real estate. Chat bubble felt disconnected. Tried all three in prototypes.</p>
+        <p class="decision-line"><strong>RESOLUTION</strong>Hybrid: collapsible side panel + inline suggestions within workflows. Present but not pushy.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DESIGN PROCESS TIMELINE ============ -->
+<section id="process">
+  <div class="container">
+    <span class="eyebrow reveal">The Design Process</span>
+    <h2 class="section-title reveal">From Vision to Dev-Ready Screens.</h2>
+    <div class="timeline reveal">
+      <div class="timeline-item">
+        <div class="timeline-week">Week 1–2 · Listen &amp; Structure</div>
+        <div class="timeline-title">Decoding the brief</div>
+        <p class="timeline-desc">Multiple client calls. Domain glossary. Structured brief. Personas &amp; user stories.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-week">Week 3–4 · Architecture &amp; Flow</div>
+        <div class="timeline-title">Mapping the product spine</div>
+        <p class="timeline-desc">IA diagrams. User flow maps. Client feedback loops. Restructured compliance priority.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-week">Week 5–7 · Wireframes</div>
+        <div class="timeline-title">Testing the bones</div>
+        <p class="timeline-desc">Low-fi exploration. Tested table, card, Kanban layouts. Table won for exception queue.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-week">Week 8–14 · High-Fidelity UI</div>
+        <div class="timeline-title">Pixel by pixel</div>
+        <p class="timeline-desc">Every screen at full fidelity. Shared component library. All states designed. Dev-ready specs.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-week">Week 15+ · Dev Handoff</div>
+        <div class="timeline-title">Built to ship</div>
+        <p class="timeline-desc">Figma organised page-by-page. Annotated interactions. Edge cases documented.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ KEY SCREENS DESIGNED ============ -->
+<section id="screens">
+  <div class="container">
+    <span class="eyebrow reveal">Key Screens Designed</span>
+    <h2 class="section-title reveal">The surface area that shipped.</h2>
+    <div class="screens-wrapper">
+      <div class="screen-col reveal delay-1">
+        <h4>EXPERIENCE360™</h4>
+        <div class="screen-list">
+          <div class="screen-card">
+            <h5>Customer Self-Service Dashboard</h5>
+            <p>Billing transparency, usage trends, personalised recommendations</p>
+          </div>
+          <div class="screen-card">
+            <h5>CSR Agent Workspace</h5>
+            <p>Unified customer view with AI-suggested next-best actions</p>
+          </div>
+          <div class="screen-card">
+            <h5>Customer Self-Service Dashboard</h5>
+            <p>Insights, alerts, and billing intelligence</p>
+          </div>
+        </div>
+      </div>
+      <div class="screen-col reveal delay-2">
+        <h4>EXCEPTIONS360™</h4>
+        <div class="screen-list">
+          <div class="screen-card">
+            <h5>AI-Prioritized Exception Queue</h5>
+            <p>Smart filters, severity coding, real-time triage</p>
+          </div>
+          <div class="screen-card">
+            <h5>Exception Detail &amp; Resolution</h5>
+            <p>Root cause analysis with guided resolution path</p>
+          </div>
+          <div class="screen-card">
+            <h5>Forecasting Dashboard</h5>
+            <p>Trend &amp; volume prediction with compliance audit trail</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MEASURABLE IMPACT ============ -->
+<section id="impact">
+  <div class="container">
+    <span class="eyebrow reveal">Measurable Impact</span>
+    <h2 class="section-title reveal">The numbers behind the work.</h2>
+    <div class="impact-wrap">
+      <div class="impact-block reveal delay-1">
+        <div class="impact-label">Experience360™</div>
+        <div class="impact-grid">
+          <div class="impact-card">
+            <div class="up-to">up to</div>
+            <div class="impact-number" data-count="40" data-suffix="%">0%</div>
+            <div class="impact-desc">Reduction in<br />Call Center Volume</div>
+          </div>
+          <div class="impact-card">
+            <div class="up-to">up to</div>
+            <div class="impact-number" data-count="25" data-suffix="%">0%</div>
+            <div class="impact-desc">Faster Issue<br />Resolution Time</div>
+          </div>
+          <div class="impact-card">
+            <div class="up-to">up to</div>
+            <div class="impact-number" data-count="90" data-suffix="%">0%</div>
+            <div class="impact-desc">Customer<br />Satisfaction Score</div>
+          </div>
+        </div>
+      </div>
+      <div class="impact-block reveal delay-2">
+        <div class="impact-label">Exceptions360™</div>
+        <div class="impact-grid">
+          <div class="impact-card">
+            <div class="up-to">up to</div>
+            <div class="impact-number" data-count="2.5" data-prefix="$" data-suffix="M+">$0M+</div>
+            <div class="impact-desc">Average Annual<br />Revenue Recovered</div>
+          </div>
+          <div class="impact-card">
+            <div class="up-to">up to</div>
+            <div class="impact-number" data-count="50" data-suffix="%">0%</div>
+            <div class="impact-desc">Faster Resolution<br />Time</div>
+          </div>
+          <div class="impact-card">
+            <div class="up-to">up to</div>
+            <div class="impact-number" data-count="95" data-suffix="%">0%</div>
+            <div class="impact-desc">Customer<br />Satisfaction</div>
+          </div>
+        </div>
+      </div>
+      <p class="impact-source reveal delay-3">Metrics as published on <a href="https://www.arcone.com" target="_blank" rel="noopener">arcone.com</a> — the live products.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHAT I'D DO DIFFERENTLY ============ -->
+<section id="differently">
+  <div class="container">
+    <span class="eyebrow reveal">What I'd Do Differently</span>
+    <h2 class="section-title reveal">Lessons captured, written down.</h2>
+    <div class="differently-list">
+      <div class="differently-card reveal delay-1">
+        <div class="differently-num">01</div>
+        <div class="differently-content">
+          <h4>Push Harder for User Access</h4>
+          <p>Frame it as risk to the product, not a research request. Even one 30-min call would have validated personas.</p>
+        </div>
+      </div>
+      <div class="differently-card reveal delay-2">
+        <div class="differently-num">02</div>
+        <div class="differently-content">
+          <h4>Record Discovery Calls</h4>
+          <p>Handwritten notes missed nuances. A recording would have been a better source of truth.</p>
+        </div>
+      </div>
+      <div class="differently-card reveal delay-3">
+        <div class="differently-num">03</div>
+        <div class="differently-content">
+          <h4>Prototype AI Earlier</h4>
+          <p>Should have built rough interactive prototypes of LYZA's flows before going high-fidelity.</p>
+        </div>
+      </div>
+      <div class="differently-card reveal delay-4">
+        <div class="differently-num">04</div>
+        <div class="differently-content">
+          <h4>Start with the Design System</h4>
+          <p>Building components as I went meant retrofitting early screens. For two products, invest week one in a shared system.</p>
+        </div>
+      </div>
+    </div>
+    <div class="closing-quote reveal delay-5">
+      The most valuable skill in product design isn't pixel-pushing. It's turning ambiguity into structure.
+    </div>
+  </div>
+</section>
+
+<!-- ============ DESIGN PROCESS SCREENS ============ -->
+<section id="screens-design">
+  <div class="container">
+    <span class="eyebrow reveal">Final Screens in Action</span>
+    <h2 class="section-title reveal">Three of the high-fidelity surfaces that shipped.</h2>
+
+    <div class="process-screen reveal delay-1">
+      <div class="process-screen-title">Design Process — Screen 1</div>
+      <div class="process-screen-rule"></div>
+      <div class="process-screen-row">
+        <div class="process-screen-image">
+          <img src="https://www.figma.com/api/mcp/asset/02703249-ab91-4892-b300-2ca601eade5b" alt="Customer self-service dashboard" loading="lazy" />
+        </div>
+        <div class="process-screen-divider"></div>
+        <p class="process-screen-desc">Crafted a data-driven, AI-powered dashboard that brings together billing, usage analytics, and proactive recommendations, helping users make faster decisions and manage services seamlessly.</p>
+      </div>
+    </div>
+
+    <div class="process-screen reveal delay-2">
+      <div class="process-screen-title">Design Process — Screen 2</div>
+      <div class="process-screen-rule"></div>
+      <div class="process-screen-row">
+        <div class="process-screen-image">
+          <img src="https://www.figma.com/api/mcp/asset/d41d42d7-b957-4e57-8bc5-157693b18d73" alt="LYZA AI assistant view" loading="lazy" />
+        </div>
+        <div class="process-screen-divider"></div>
+        <p class="process-screen-desc">Integrated LYZA, an AI co-pilot that combines proactive recommendations with conversational guidance, enabling users to quickly interpret usage data, get instant answers, and take meaningful actions directly within the dashboard.</p>
+      </div>
+    </div>
+
+    <div class="process-screen reveal delay-3">
+      <div class="process-screen-title">Design Process — Screen 3</div>
+      <div class="process-screen-rule"></div>
+      <div class="process-screen-row">
+        <div class="process-screen-image" style="aspect-ratio: 700/437;">
+          <img src="https://www.figma.com/api/mcp/asset/65476dc6-97e8-480a-af30-12e113d51ad1" alt="Service management screen" loading="lazy" />
+        </div>
+        <div class="process-screen-divider"></div>
+        <p class="process-screen-desc">Created a guided bill summary experience that breaks down multi-utility charges into a clear, scannable format, helping users understand costs, verify details, and complete payments with confidence.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <img class="footer-logo"
+       src="https://wsrv.nl/?url=cdn.prod.website-files.com%2F67ab637408cdeea548981c89%2F67b73e1c7827c343eb5e39d0_80c06ca3b9807e9beae5664dfa390267_arcone_logo_rev.svg&w=280&output=png"
+       alt="ArcOne"
+       onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+  <div class="footer-logo-mark" style="display:none;" aria-label="ArcOne">
+    <span class="light">arc</span>One<span class="dot"></span>
+  </div>
+  <div class="signoff">Sujithra Balasubramani</div>
+  <div class="role">Lead Product Designer · Chennai</div>
+  <a href="mailto:sujithra27@gmail.com" class="cta">Get in Touch</a>
+  <div class="meta">ArcOne — UX &amp; UI Case Study · © 2024</div>
+</footer>
+
+<script>
+/* ============ SCROLL PROGRESS BAR ============ */
+const progress = document.getElementById('progress');
+function updateProgress() {
+  const h = document.documentElement;
+  const scrolled = h.scrollTop / (h.scrollHeight - h.clientHeight);
+  progress.style.width = (scrolled * 100) + '%';
+}
+window.addEventListener('scroll', updateProgress, { passive: true });
+updateProgress();
+
+/* ============ REVEAL ON SCROLL ============ */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in');
+      // Trigger count-up animation when impact cards enter view
+      const numbers = entry.target.querySelectorAll('.impact-number[data-count]');
+      numbers.forEach(el => {
+        if (!el.dataset.animated) {
+          el.dataset.animated = 'true';
+          animateCount(el);
+        }
+      });
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+/* ============ COUNT-UP ANIMATION ============ */
+function animateCount(el) {
+  const target = parseFloat(el.dataset.count);
+  const prefix = el.dataset.prefix || '';
+  const suffix = el.dataset.suffix || '';
+  const isFloat = target % 1 !== 0;
+  const duration = 1500;
+  const start = performance.now();
+
+  function step(t) {
+    const elapsed = t - start;
+    const p = Math.min(elapsed / duration, 1);
+    // ease-out cubic
+    const eased = 1 - Math.pow(1 - p, 3);
+    const current = target * eased;
+    const value = isFloat ? current.toFixed(1) : Math.floor(current);
+    el.textContent = `${prefix}${value}${suffix}`;
+    if (p < 1) requestAnimationFrame(step);
+    else el.textContent = `${prefix}${isFloat ? target.toFixed(1) : target}${suffix}`;
+  }
+  requestAnimationFrame(step);
+}
+
+/* ============ SECTION NAV ACTIVE STATE ============ */
+const navLinks = document.querySelectorAll('.section-nav a');
+const sections = Array.from(navLinks).map(a => document.querySelector(a.getAttribute('href')));
+
+const navObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const idx = sections.indexOf(entry.target);
+      navLinks.forEach((l, i) => l.classList.toggle('active', i === idx));
+    }
+  });
+}, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+
+sections.forEach(s => s && navObserver.observe(s));
+
+/* ============ STAGGERED FLOW STEP REVEAL ============ */
+document.querySelectorAll('.flow-wrap').forEach(wrap => {
+  const stepsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const steps = entry.target.querySelectorAll('.flow-step');
+        steps.forEach((step, i) => {
+          step.style.opacity = '0';
+          step.style.transform = 'translateY(20px)';
+          setTimeout(() => {
+            step.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+            step.style.opacity = '1';
+            step.style.transform = 'translateY(0)';
+          }, i * 120);
+        });
+        stepsObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  stepsObserver.observe(wrap);
+});
+
+/* ============ STAGGERED PILL REVEAL ============ */
+document.querySelectorAll('.flow-pills').forEach(pills => {
+  const pillsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const items = entry.target.querySelectorAll('.pill');
+        items.forEach((p, i) => {
+          p.style.opacity = '0';
+          p.style.transform = 'scale(0.7)';
+          setTimeout(() => {
+            p.style.transition = 'opacity 0.4s ease-out, transform 0.4s var(--ease)';
+            p.style.opacity = '1';
+            p.style.transform = 'scale(1)';
+          }, i * 100 + 300);
+        });
+        pillsObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  pillsObserver.observe(pills);
+});
+
+/* ============ SUBTLE PARALLAX ON HERO LOGO ============ */
+const heroLogo = document.querySelector('.hero-logo-wrap');
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  if (y < window.innerHeight && heroLogo) {
+    heroLogo.style.transform = `translateY(${y * 0.15}px) rotate(${y * 0.02}deg)`;
+  }
+}, { passive: true });
+</script>
+
+</body>
+</html>

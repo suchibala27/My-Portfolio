@@ -1,0 +1,60 @@
+UI/UX PORTFOLIO LANDING PAGE — ASSETS
+=======================================================
+
+The landing page (index.html) currently loads 4 images straight from
+Figma's CDN. Those URLs work fine right now but EXPIRE about 7 days
+after they were generated (around May 22). Before you host this
+permanently, swap them to local files in this folder.
+
+ALREADY LOCAL (done, nothing to do):
+  - thumb-billcompare.png   Bill Compare card thumbnail (copied from the
+                            Bill Compare dashboard screenshot)
+
+STILL REMOTE — localise these 4 before hosting:
+-------------------------------------------------------
+1. HERO BACKGROUND  (you on the yellow stool)
+   used in: CSS  .hero { background: ... }
+   Figma node : 491-46   (file dMkJCLVTHl0Pv9TnuWcNtz)
+   download   : https://www.figma.com/api/mcp/asset/ef290454-31b9-4338-9b02-c1ec960ee6b5
+   save as    : landing_assets/hero.jpg
+   then in index.html change the .hero background URL to:
+                url('landing_assets/hero.jpg')
+
+2. ARCONE CARD THUMBNAIL
+   Figma node : 499-130
+   download   : https://www.figma.com/api/mcp/asset/b6ad770b-d51b-4d9a-819f-384951687931
+   save as    : landing_assets/thumb-arcone.png
+   then change that <img src> in index.html to: landing_assets/thumb-arcone.png
+
+3. WAREHOUSE CARD THUMBNAIL
+   Figma node : 574-41066
+   download   : https://www.figma.com/api/mcp/asset/d1fe14dd-a65d-41d2-a7fd-6a4b4e3cf95a
+   save as    : landing_assets/thumb-warehouse.png
+   then change that <img src> in index.html to: landing_assets/thumb-warehouse.png
+
+4. ATI CARD THUMBNAIL
+   Figma node : 574-41064
+   download   : https://www.figma.com/api/mcp/asset/736cd6b4-e1bf-4e66-b096-13945a9fcc62
+   save as    : landing_assets/thumb-ati.png
+   then change that <img src> in index.html to: landing_assets/thumb-ati.png
+
+5. ABOUT PORTRAIT  (oval photo)
+   Figma node : 577-41094
+   download   : https://www.figma.com/api/mcp/asset/1cc32aee-dc4a-406d-a4e5-2ad4f50f2ae5
+   save as    : landing_assets/portrait.jpg
+   then change that <img src> in index.html to: landing_assets/portrait.jpg
+
+ALSO ADD:
+-------------------------------------------------------
+- Sujithra-Balasubramani-CV.pdf
+  Your CV/resume. The "Download CV" button and footer "Resume" link
+  point to: landing_assets/Sujithra-Balasubramani-CV.pdf
+  Drop your PDF here with that exact name (or tell me to change the link).
+
+PLACEHOLDERS TO CONFIRM:
+-------------------------------------------------------
+- LinkedIn URL in the footer is set to:
+  https://www.linkedin.com/in/sujithra-balasubramani
+  Replace it with your real LinkedIn URL if different.
+- "Freelance" nav link + footer "Art Portfolio" link point to:
+  https://suchibala27.github.io/suchi/

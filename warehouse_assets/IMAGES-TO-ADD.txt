@@ -1,0 +1,105 @@
+WAREHOUSE MANAGEMENT APP — IMAGES TO ADD
+=======================================================
+
+Place these 18 image files into this folder (warehouse_assets/).
+The HTML already points to these exact filenames.
+
+TWO WAYS TO GET EACH IMAGE:
+  A) Open the download URL below in your browser, right-click > Save As,
+     and save with the EXACT filename listed. (URLs valid ~7 days from May 14.)
+  B) PERMANENT: open the Figma file, select the node ID listed, and
+     export as PNG with the exact filename.
+
+Figma file: https://www.figma.com/design/dMkJCLVTHl0Pv9TnuWcNtz/Portfolio-Assets
+
+-------------------------------------------------------
+
+FILENAME : bigbasket-logo.png
+  what   : BigBasket logo (green square mark)
+  node   : 574-40227
+  url    : https://www.figma.com/api/mcp/asset/c9d31857-5637-4ec2-a879-e53ea1fc6b2f
+
+FILENAME : icon-1-vendor-tooling.png
+  what   : Challenge card icon 1 - phone/vendor tooling
+  node   : 574-40238
+  url    : https://www.figma.com/api/mcp/asset/b663b5ae-ee5f-4ea5-a0bb-bda2b6197ab2
+
+FILENAME : icon-2-cognitive-overload.png
+  what   : Challenge card icon 2 - boxes/cognitive overload
+  node   : 574-40245
+  url    : https://www.figma.com/api/mcp/asset/eb996136-ce74-4329-ba87-4d4598685eb6
+
+FILENAME : icon-3-context-switching.png
+  what   : Challenge card icon 3 - context switching
+  node   : 574-40253
+  url    : https://www.figma.com/api/mcp/asset/0fdf07f1-d423-4942-b717-c0d6fed47ec4
+
+FILENAME : icon-4-inventory-gaps.png
+  what   : Challenge card icon 4 - inventory gaps
+  node   : 574-40260
+  url    : https://www.figma.com/api/mcp/asset/79f0fa36-7b91-449a-a424-1d5af1576bd1
+
+FILENAME : before-legacy-wms.png
+  what   : The Before State - legacy Zebra WMS screen
+  node   : 574-40267
+  url    : https://www.figma.com/api/mcp/asset/7997312e-3f35-476f-a193-03256e74a420
+
+FILENAME : stacking-1.png
+  what   : Stacking App - Scan SKU
+  node   : 574-40442
+  url    : https://www.figma.com/api/mcp/asset/cd26ccfb-f142-4923-9be1-1d08f3d4b243
+
+FILENAME : stacking-2.png
+  what   : Stacking App - Select Batch (FIFO)
+  node   : 574-40443
+  url    : https://www.figma.com/api/mcp/asset/ffdc9afd-2311-4d19-b39a-b7e4272418ea
+
+FILENAME : stacking-3.png
+  what   : Stacking App - Confirm Suggested Pick
+  node   : 574-40444
+  url    : https://www.figma.com/api/mcp/asset/a788f575-eb86-4c02-88d7-abf787fc7c85
+
+FILENAME : stacking-4.png
+  what   : Stacking App - Enter Actual Qty (also reused: L&F FNV Assign Bin)
+  node   : 574-40445
+  url    : https://www.figma.com/api/mcp/asset/5d5e7f1d-5370-4542-af62-e36da9c95298
+
+FILENAME : stacking-5.png
+  what   : Stacking App - Scan & Stack to Bin
+  node   : 574-40446
+  url    : https://www.figma.com/api/mcp/asset/e987790e-d8e4-4974-af95-477e62a740e4
+
+FILENAME : lf-1.png
+  what   : Lost & Found FMCG - Scan SKU
+  node   : 574-40478
+  url    : https://www.figma.com/api/mcp/asset/f266248e-a90e-4072-8169-d3630dd3ec7a
+
+FILENAME : lf-2.png
+  what   : Lost & Found FMCG - Batch Info (also reused: L&F FNV Qty & Date)
+  node   : 574-40517
+  url    : https://www.figma.com/api/mcp/asset/494ad552-abbf-4903-913d-cb23c6faa481
+
+FILENAME : lf-3.png
+  what   : Lost & Found FMCG - Assign Bin (also reused: Stock Info Scan SKU)
+  node   : 574-40556
+  url    : https://www.figma.com/api/mcp/asset/dc94496b-3e21-4046-b7b8-6d2b37ed2e12
+
+FILENAME : stockinfo-2.png
+  what   : Stock Info App - Qty & Date (also reused: L&F FNV Scan SKU)
+  node   : 574-40557
+  url    : https://www.figma.com/api/mcp/asset/651149ba-a043-4886-b9f9-66f0b17b5259
+
+FILENAME : stockinfo-3.png
+  what   : Stock Info App - Assign Bin
+  node   : 574-40558
+  url    : https://www.figma.com/api/mcp/asset/53416519-2eef-49f3-977c-e85a6a26e69f
+
+FILENAME : error-1.png
+  what   : Error & Edge States - Network Error screen
+  node   : 574-40614
+  url    : https://www.figma.com/api/mcp/asset/aefe1631-8f2b-480c-a857-aecfb164584a
+
+FILENAME : error-2.png
+  what   : Error & Edge States - Session Timeout screen
+  node   : 574-40615
+  url    : https://www.figma.com/api/mcp/asset/9adde57e-e099-422d-9a48-96809a3d215d

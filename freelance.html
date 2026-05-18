@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sujithra Balasubramani — Freelance Design</title>
+<meta name="description" content="Freelance design — brand systems, generative AI design, brand guidelines, and presentation design for ten brands across healthcare, luxury real estate, retail, wellness, fashion and family entertainment." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   Sujithra Balasubramani — Freelance Portfolio
+   Reference: leahprocko.com aesthetic
+   minimal · editorial · uniform grids · no videos
+   ============================================================ */
+:root {
+  --paper:   #F6F4EE;
+  --ink:     #1A1A1A;
+  --body:    #2F2F2F;
+  --slate:   #6B6B6B;
+  --gray:    #9F9F9F;
+  --line:    #D6D2C8;
+  --accent:  #C8412A;
+  --ease:    cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+.serif { font-family: 'Cormorant Garamond', 'Times New Roman', serif; font-weight: 400; letter-spacing: -0.005em; }
+.tt {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* ============ NAV ============ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 28px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.4s var(--ease), padding 0.3s var(--ease);
+  background: transparent;
+}
+.nav.solid {
+  background: var(--paper);
+  padding: 18px 48px;
+  border-bottom: 1px solid var(--line);
+}
+.nav .name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px;
+  font-style: italic;
+  font-weight: 400;
+}
+.nav-right {
+  display: flex;
+  gap: 36px;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.nav-right a { transition: opacity 0.3s var(--ease); }
+.nav-right a:hover { opacity: 0.55; }
+@media (max-width: 720px) {
+  .nav { padding: 18px 24px; }
+  .nav-right { gap: 18px; font-size: 10.5px; }
+  .nav-right a.optional { display: none; }
+}
+
+/* ============ SCROLL PROGRESS ============ */
+.scroll-progress {
+  position: fixed; top: 0; left: 0;
+  height: 1.5px;
+  background: var(--accent);
+  width: 0%;
+  z-index: 200;
+  transition: width 0.05s linear;
+}
+
+/* ============ REVEAL ============ */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s var(--ease), transform 1s var(--ease);
+}
+.reveal.in { opacity: 1; transform: translateY(0); }
+.reveal.d1 { transition-delay: 0.10s; }
+.reveal.d2 { transition-delay: 0.20s; }
+.reveal.d3 { transition-delay: 0.30s; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  * { animation: none !important; }
+}
+
+/* ============ HERO ============ */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 140px 48px 80px;
+  text-align: center;
+  position: relative;
+}
+.hero .top-meta {
+  position: absolute;
+  top: 96px; left: 48px; right: 48px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--slate);
+  font-weight: 500;
+}
+.hero .top-meta .right { display: flex; gap: 40px; }
+.hero .top-meta .dot {
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #4DA961;
+  margin-right: 8px;
+  animation: pulse 2.4s ease-in-out infinite;
+  vertical-align: middle;
+}
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(58px, 11vw, 200px);
+  line-height: 0.88;
+  letter-spacing: -0.025em;
+  max-width: 1100px;
+  margin: 0 auto 50px;
+}
+.hero h1 .italic { font-style: italic; font-weight: 400; color: var(--accent); }
+.hero h1 .em::before {
+  content: '';
+  display: inline-block;
+  width: 60px; height: 4px;
+  background: var(--ink);
+  vertical-align: middle;
+  margin: 0 14px 18px 6px;
+}
+.hero p.sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(20px, 2.2vw, 26px);
+  line-height: 1.4;
+  color: var(--slate);
+  max-width: 720px;
+  margin: 0 auto 36px;
+}
+.hero .chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.hero .chip {
+  border: 1px solid var(--line);
+  padding: 7px 16px;
+  border-radius: 100px;
+  font-size: 12px;
+  color: var(--body);
+  transition: all 0.4s var(--ease);
+}
+.hero .chip:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.hero .scroll-mark {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--slate);
+  font-weight: 500;
+  line-height: 1;
+  pointer-events: none;
+}
+.hero .scroll-mark .line {
+  width: 1px;
+  height: 32px;
+  background: var(--ink);
+  transform-origin: top;
+  animation: scrollDrop 2.4s ease-in-out infinite;
+}
+@keyframes scrollDrop {
+  0%, 100% { transform: scaleY(0.2); opacity: 0.3; }
+  50%      { transform: scaleY(1);   opacity: 1; }
+}
+@media (max-width: 720px) {
+  .hero .top-meta { left: 24px; right: 24px; top: 80px; }
+  .hero .top-meta .right { gap: 18px; }
+  .hero .scroll-mark { bottom: 24px; }
+}
+
+/* ============ INTRO ============ */
+.intro {
+  padding: 140px 48px;
+  border-top: 1px solid var(--line);
+}
+.intro-wrap {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 100px;
+  align-items: center;
+}
+.intro-image {
+  position: relative;
+  aspect-ratio: 4/5;
+  background: linear-gradient(160deg, #ECE8DE 0%, #DDD7C9 100%);
+  overflow: hidden;
+}
+.intro-image img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: 56% center;
+}
+.intro-image .placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+.intro-image .placeholder .mono {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 140px;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--ink);
+  line-height: 1;
+}
+.intro-image .placeholder .note {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--slate);
+  text-align: center;
+  max-width: 80%;
+  line-height: 1.7;
+  padding: 0 12px;
+}
+.intro-image .placeholder .note .path {
+  color: var(--accent);
+  font-family: 'Inter', sans-serif;
+  font-size: 9.5px;
+  letter-spacing: 0.05em;
+  text-transform: none;
+  display: inline-block;
+  margin-top: 4px;
+  background: #fff;
+  padding: 2px 6px;
+}
+.intro-text .label {
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 26px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.intro-text .label::before {
+  content: ''; width: 26px; height: 1px; background: var(--accent);
+}
+.intro-text h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-size: clamp(40px, 4.6vw, 64px);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  margin-bottom: 32px;
+}
+.intro-text h2 .italic { font-style: italic; color: var(--accent); }
+.intro-text p {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--body);
+  margin-bottom: 18px;
+  max-width: 540px;
+}
+.intro-text p strong { font-weight: 500; color: var(--ink); }
+@media (max-width: 980px) {
+  .intro-wrap { grid-template-columns: 1fr; gap: 60px; }
+  .intro-image { max-width: 480px; margin: 0 auto; width: 100%; }
+}
+
+/* ============ CAPABILITIES ============ */
+.capabilities {
+  padding: 0 48px 120px;
+  border-bottom: 1px solid var(--line);
+}
+.cap-wrap { max-width: 1280px; margin: 0 auto; }
+.cap-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--slate);
+  margin-bottom: 50px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.cap-eyebrow::before { content: ''; width: 26px; height: 1px; background: var(--slate); }
+.cap-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 72px;
+}
+.cap-item h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 1.15;
+  margin-bottom: 14px;
+}
+.cap-item h4 .italic { font-style: italic; }
+.cap-item p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--slate);
+}
+@media (max-width: 880px) {
+  .cap-list { grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* ============ WORKS HEADER ============ */
+.works-head {
+  padding: 140px 48px 80px;
+  text-align: center;
+}
+.works-head .tt {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--slate);
+  margin-bottom: 30px;
+}
+.works-head .tt::before, .works-head .tt::after {
+  content: ''; width: 36px; height: 1px; background: var(--slate);
+}
+.works-head h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(56px, 7.5vw, 110px);
+  line-height: 0.96;
+  letter-spacing: -0.025em;
+}
+.works-head h2 .italic { font-style: italic; }
+
+/* ============ BRAND SECTION ============ */
+.brand {
+  padding: 80px 48px 140px;
+  position: relative;
+}
+.brand-head {
+  max-width: 1280px;
+  margin: 0 auto 60px;
+}
+.brand-meta-row {
+  display: grid;
+  grid-template-columns: 200px 1fr 1fr;
+  gap: 60px;
+  padding-bottom: 36px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 60px;
+}
+.brand-logo {
+  display: flex;
+  align-items: center;
+  height: 52px;
+}
+.brand-logo img {
+  max-height: 100%;
+  max-width: 200px;
+  width: auto;
+  object-fit: contain;
+}
+.brand-logo .wordmark {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-size: 32px;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+.brand-logo .wordmark.italic { font-style: italic; }
+.brand-meta-col h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-size: 16px;
+  font-style: italic;
+  color: var(--slate);
+  margin-bottom: 8px;
+}
+.brand-meta-col .v {
+  font-size: 14px;
+  color: var(--ink);
+  font-weight: 500;
+}
+.brand-meta-col .v a {
+  border-bottom: 1px solid var(--accent);
+  color: var(--accent);
+  padding-bottom: 2px;
+  transition: opacity 0.3s var(--ease);
+}
+.brand-meta-col .v a:hover { opacity: 0.6; }
+.brand-meta-col .v .pipe { color: var(--line); margin: 0 8px; }
+.brand-title-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: end;
+}
+.brand-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--slate);
+  margin-bottom: 14px;
+}
+.brand-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(56px, 7.5vw, 116px);
+  line-height: 0.94;
+  letter-spacing: -0.025em;
+}
+.brand-name .italic { font-style: italic; }
+.brand-pitch {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--body);
+  max-width: 480px;
+}
+.brand-pitch strong { color: var(--ink); font-weight: 500; }
+@media (max-width: 980px) {
+  .brand-meta-row { grid-template-columns: 1fr 1fr; gap: 30px; }
+  .brand-logo { grid-column: 1 / -1; }
+  .brand-title-row { grid-template-columns: 1fr; gap: 30px; }
+}
+@media (max-width: 640px) {
+  .brand-meta-row { grid-template-columns: 1fr; gap: 20px; }
+}
+
+/* ============ UNIFORM IMAGE GRID ============ */
+.brand-grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  gap: 24px;
+}
+.brand-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.brand-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.brand-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+.brand-grid img {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: #ECE8DE;
+  transition: opacity 0.5s var(--ease);
+}
+@media (max-width: 1080px) {
+  .brand-grid.cols-4 { grid-template-columns: repeat(2, 1fr); }
+  .brand-grid.cols-3 { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+}
+@media (max-width: 540px) {
+  .brand-grid.cols-2, .brand-grid.cols-3, .brand-grid.cols-4 { grid-template-columns: 1fr; gap: 16px; }
+}
+
+/* ============ NOTE TILE (cloudzlab placeholder) ============ */
+.note-tile {
+  text-align: center;
+  padding: 100px 40px;
+  background: rgba(255,255,255,0.5);
+  border: 1px solid var(--line);
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.note-tile h5 {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 28px;
+  font-weight: 400;
+  margin-bottom: 12px;
+}
+.note-tile p {
+  color: var(--slate);
+  font-size: 14px;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+/* ============ DIVIDER ============ */
+.divider {
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 0 48px;
+}
+.divider .ornament {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 22px;
+  color: var(--slate);
+  letter-spacing: 0.6em;
+  text-indent: 0.6em;
+}
+
+/* ============ FOOTER ============ */
+.foot {
+  padding: 180px 48px 60px;
+  background: var(--paper);
+  border-top: 1px solid var(--line);
+}
+.foot-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
+}
+.foot .tt { color: var(--slate); margin-bottom: 36px; display: inline-block; }
+.foot h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(60px, 11vw, 180px);
+  line-height: 0.94;
+  letter-spacing: -0.03em;
+  margin-bottom: 60px;
+}
+.foot h2 .italic { font-style: italic; color: var(--accent); }
+.foot .channels {
+  display: flex;
+  gap: 60px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 100px;
+}
+.foot .channel {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 22px;
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 4px;
+  transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.foot .channel:hover { color: var(--accent); border-color: var(--accent); }
+.foot .credit {
+  border-top: 1px solid var(--line);
+  padding-top: 26px;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--slate);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+@media (max-width: 720px) {
+  .foot .channels { flex-direction: column; gap: 22px; }
+}
+</style>
+</head>
+<body>
+
+<div class="scroll-progress" id="progress"></div>
+
+<nav class="nav" id="nav">
+  <a href="index.html" class="name">Sujithra Balasubramani</a>
+  <div class="nav-right">
+    <a href="index.html" class="optional">Case Studies</a>
+    <a href="#works">Works</a>
+    <a href="#say-hello">Say Hello</a>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="top-meta">
+    <span><span class="dot"></span>Available for work · 2026</span>
+    <div class="right">
+      <span>Chennai · UAE</span>
+      <span>Freelance · 10 Brands</span>
+    </div>
+  </div>
+
+  <div>
+    <h1 class="reveal">
+      Designer<br>
+      <span class="italic">crafting</span> brands<br>
+      with <span class="em"></span><span class="italic">intention.</span>
+    </h1>
+    <p class="sub reveal d1">Freelance work across brand systems, generative AI design, brand guidelines and presentation. Ten brands &mdash; one principle: <em>design that feels considered.</em></p>
+    <div class="chips reveal d2">
+      <span class="chip">Brand Systems</span>
+      <span class="chip">Generative AI Design</span>
+      <span class="chip">Brand Guidelines</span>
+      <span class="chip">Presentation Design</span>
+      <span class="chip">Social &amp; Web</span>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============ INTRO ============ -->
+<section class="intro" id="about">
+  <div class="intro-wrap">
+    <div class="intro-image reveal">
+      <img src="freelance_assets/sujithra/portrait.jpg" alt="Sujithra Balasubramani"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+      <div class="placeholder" style="display: none;">
+        <div class="mono">Sb.</div>
+      </div>
+    </div>
+
+    <div class="intro-text">
+      <div class="label reveal">A short note</div>
+      <h2 class="reveal d1">A <span class="italic">multi-disciplinary</span> designer with a soft spot for brand work.</h2>
+      <p class="reveal d2">I'm a freelance designer based in Chennai, working with clients across the UAE and India. Trained in <strong>UI &amp; UX</strong>, sharpened in <strong>advertising</strong>, and grounded in <strong>graphic design</strong> &mdash; my craft sits at the intersection of all three.</p>
+      <p class="reveal d2">Most of my freelance work falls into four buckets: <strong>generative AI design</strong> (brand-aligned imagery created from detailed, controlled prompts), <strong>brand guidelines</strong> (turning client resources into a usable system), <strong>presentation design</strong> (decks that close the room), and the social, web and OOH work that flows out of them.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CAPABILITIES ============ -->
+<section class="capabilities">
+  <div class="cap-wrap">
+    <div class="cap-eyebrow reveal">What I do</div>
+    <div class="cap-list">
+      <div class="cap-item reveal d1">
+        <h4>Generative <span class="italic">AI</span> design</h4>
+        <p>Designs created by AI &mdash; brand-aligned imagery generated through detailed, controlled prompts. Used at scale for social, web, ads and in-store collateral.</p>
+      </div>
+      <div class="cap-item reveal d2">
+        <h4>Brand <span class="italic">guidelines</span></h4>
+        <p>Turn a client's existing resources into a usable system. Type, grid, voice, motion, do's and don'ts &mdash; ready for any future designer to pick up.</p>
+      </div>
+      <div class="cap-item reveal d3">
+        <h4>Presentation <span class="italic">design</span></h4>
+        <p>Decks, sales kits and pitch documents built from the client's content. Editorial layout, clean typography, paced storytelling.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WORKS HEADER ============ -->
+<section class="works-head" id="works">
+  <p class="tt reveal">Selected Works · 2024 — 2026</p>
+  <h2 class="reveal d1">Ten brands,<br><span class="italic">brand by brand.</span></h2>
+</section>
+
+<!-- ============ 01 WEARFOLD ============ -->
+<section class="brand" id="wearfold">
+  <div class="brand-head">
+    <div class="brand-meta-row reveal">
+      <div class="brand-logo">
+        <img src="https://wearfold.com/cdn/shop/files/Fold_-_Logotype_Dark___SF-01.png?v=1668706322&width=400"
+             alt="Fold (Wearfold)"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+        <span class="wordmark italic" style="display: none;">Fold</span>
+      </div>
+      <div class="brand-meta-col">
+        <h3>Sector</h3>
+        <p class="v">Fashion · Womenswear</p>
+      </div>
+      <div class="brand-meta-col">
+        <h3>Output · Year</h3>
+        <p class="v">Campaign Stills <span class="pipe">/</span> 2025 <span class="pipe">/</span> <a href="https://wearfold.com/" target="_blank" rel="noopener">wearfold.com</a></p>
+      </div>
+    </div>
+    <div class="brand-title-row reveal d1">
+      <div>
+        <p class="brand-num">01</p>
+        <h2 class="brand-name">Fold<br><span class="italic">— Rouge</span></h2>
+      </div>
+      <p class="brand-pitch">A modern womenswear house designed for the confident, collected woman. I shot and styled <strong>Fall/Winter 2025</strong> &mdash; earth tones, fabric studies, model portraits.</p>
+    </div>
+  </div>
+
+  <div class="brand-grid cols-3 reveal">
+    <img src="freelance_assets/wearfold/wearfold-01.jpg" alt="Wearfold 1" loading="lazy" />
+    <img src="freelance_assets/wearfold/wearfold-02.jpg" alt="Wearfold 2" loading="lazy" />
+    <img src="freelance_assets/wearfold/wearfold-03.jpg" alt="Wearfold 3" loading="lazy" />
+    <img src="freelance_assets/wearfold/wearfold-04.jpg" alt="Wearfold 4" loading="lazy" />
+    <img src="freelance_assets/wearfold/wearfold-05.jpg" alt="Wearfold 5" loading="lazy" />
+    <img src="freelance_assets/wearfold/wearfold-06.jpg" alt="Wearfold 6" loading="lazy" />
+  </div>
+</section>
+
+<div class="divider"><span class="ornament">·  ·  ·</span></div>
+
+<!-- ============ 02 EQUILIBRIUM ============ -->
+<section class="brand" id="equilibrium">
+  <div class="brand-head">
+    <div class="brand-meta-row reveal">
+      <div class="brand-logo">
+        <span class="wordmark" style="font-family: Inter, sans-serif; font-weight: 600; font-size: 22px; letter-spacing: 0.18em; text-transform: uppercase;">Equilibrium</span>
+      </div>
+      <div class="brand-meta-col">
+        <h3>Sector</h3>
+        <p class="v">Wellness · Martial Arts</p>
+      </div>
+      <div class="brand-meta-col">
+        <h3>Output · Year</h3>
+        <p class="v">Social &amp; Generative Ads <span class="pipe">/</span> 2025 <span class="pipe">/</span> <a href="https://www.equilibrium.me/" target="_blank" rel="noopener">equilibrium.me</a></p>
+      </div>
+    </div>
+    <div class="brand-title-row reveal d1">
+      <div>
+        <p class="brand-num">02</p>
+        <h2 class="brand-name"><span class="italic">Equilibrium</span></h2>
+      </div>
+      <p class="brand-pitch">Dubai's premium martial-arts and fitness studio. I built a <strong>generative ad system</strong> that produces class posters at speed without losing the studio's editorial weight.</p>
+    </div>
+  </div>
+
+  <div class="brand-grid cols-2 reveal">
+    <img src="freelance_assets/equilibrium/equilibrium-01.jpg" alt="Equilibrium 1" loading="lazy" />
+    <img src="freelance_assets/equilibrium/equilibrium-02.jpg" alt="Equilibrium 2" loading="lazy" />
+    <img src="freelance_assets/equilibrium/equilibrium-03.jpg" alt="Equilibrium 3" loading="lazy" />
+    <img src="freelance_assets/equilibrium/equilibrium-04.jpg" alt="Equilibrium 4" loading="lazy" />
+  </div>
+</section>
+
+<div class="divider"><span class="ornament">·  ·  ·</span></div>
+
+<!-- ============ 03 LAMBORGHINI ============ -->
+<section class="brand" id="lamborgini-residence">
+  <div class="brand-head">
+    <div class="brand-meta-row reveal">
+      <div class="brand-logo">
+        <span class="wordmark italic" style="font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 28px; letter-spacing: 0.06em;">Tonino Lamborghini</span>
+      </div>
+      <div class="brand-meta-col">
+        <h3>Sector</h3>
+        <p class="v">Luxury Real Estate</p>
+      </div>
+      <div class="brand-meta-col">
+        <h3>Output · Year</h3>
+        <p class="v">Generative Campaign <span class="pipe">/</span> 2025 <span class="pipe">/</span> <a href="https://lamborghini.it/en-int/pages/real-estate" target="_blank" rel="noopener">lamborghini.it</a></p>
+      </div>
+    </div>
+    <div class="brand-title-row reveal d1">
+      <div>
+        <p class="brand-num">03</p>
+        <h2 class="brand-name">Residences<br><span class="italic">Dubai</span></h2>
+      </div>
+      <p class="brand-pitch">A premium residential development for Tonino Lamborghini. The launch campaign sold homes before they were built &mdash; <strong>AI-generated cinematography</strong> built from concept renders. Restraint, gold accents, slow cuts.</p>
+    </div>
+  </div>
+
+  <div class="brand-grid cols-4 reveal">
+    <img src="freelance_assets/lamborgini-residence/lamborgini-residence-01.jpg" alt="Lambo 1" loading="lazy" />
+    <img src="freelance_assets/lamborgini-residence/lamborgini-residence-02.jpg" alt="Lambo 2" loading="lazy" />
+    <img src="freelance_assets/lamborgini-residence/lamborgini-residence-03.jpg" alt="Lambo 3" loading="lazy" />
+    <img src="freelance_assets/lamborgini-residence/lamborgini-residence-04.jpg" alt="Lambo 4" loading="lazy" />
+    <img src="freelance_assets/lamborgini-residence/lamborgini-residence-05.jpg" alt="Lambo 5" loading="lazy" />
+    <img src="freelance_assets/lamborgini-residence/lamborgini-residence-06.jpg" alt="Lambo 6" loading="lazy" />
+    <img src="freelance_assets/lamborgini-residence/lamborgini-residence-07.jpg" alt="Lambo 7" loading="lazy" />
+    <img src="freelance_assets/lamborgini-residence/lamborgini-residence-08.jpg" alt="Lambo 8" loading="lazy" />
+  </div>
+</section>
+
+<div class="divider"><span class="ornament">·  ·  ·</span></div>
+
+<!-- ============ 04 CLOUDZLAB ============ -->
+<section class="brand" id="cloudlabz">
+  <div class="brand-head">
+    <div class="brand-meta-row reveal">
+      <div class="brand-logo">
+        <span class="wordmark" style="font-family: Inter, sans-serif; font-weight: 600; font-size: 22px;">Cloudzlab</span>
+      </div>
+      <div class="brand-meta-col">
+        <h3>Sector</h3>
+        <p class="v">Technology · Cloud Services</p>
+      </div>
+      <div class="brand-meta-col">
+        <h3>Output · Year</h3>
+        <p class="v">Brand System &amp; Decks <span class="pipe">/</span> 2025 <span class="pipe">/</span> <a href="https://www.cloudzlab.com/" target="_blank" rel="noopener">cloudzlab.com</a></p>
+      </div>
+    </div>
+    <div class="brand-title-row reveal d1">
+      <div>
+        <p class="brand-num">04</p>
+        <h2 class="brand-name"><span class="italic">Cloudzlab</span></h2>
+      </div>
+      <p class="brand-pitch">Cloud-services consultancy. I designed <strong>launch teasers, brand guidelines and decks</strong> &mdash; a type system, colour ramp and presentation templates designed to scale across sales collateral.</p>
+    </div>
+  </div>
+
+  <div class="brand-grid cols-2 reveal">
+    <img src="freelance_assets/cloudlabz/cloudlabz-01.svg" alt="Cloudzlab — A New Chapter Begins" loading="lazy" />
+    <img src="freelance_assets/cloudlabz/cloudlabz-02.svg" alt="Cloudzlab — Coming Soon" loading="lazy" />
+  </div>
+</section>
+
+<div class="divider"><span class="ornament">·  ·  ·</span></div>
+
+<!-- ============ 05 BURJEEL MEDICAL CITY ============ -->
+<section class="brand" id="burjeel">
+  <div class="brand-head">
+    <div class="brand-meta-row reveal">
+      <div class="brand-logo">
+        <img src="https://burjeelmedicalcity.com/wp-content/uploads/2025/08/bmc-logo-english.png"
+             alt="Burjeel Medical City"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+        <span class="wordmark" style="display: none; font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 22px;">Burjeel Medical City</span>
+      </div>
+      <div class="brand-meta-col">
+        <h3>Sector</h3>
+        <p class="v">Healthcare · Hospital</p>
+      </div>
+      <div class="brand-meta-col">
+        <h3>Output · Year</h3>
+        <p class="v">Web, Social, Print <span class="pipe">/</span> 2024 — 25 <span class="pipe">/</span> <a href="https://burjeelmedicalcity.com/" target="_blank" rel="noopener">burjeelmedicalcity.com</a></p>
+      </div>
+    </div>
+    <div class="brand-title-row reveal d1">
+      <div>
+        <p class="brand-num">05</p>
+        <h2 class="brand-name">Burjeel<br><span class="italic">Medical City</span></h2>
+      </div>
+      <p class="brand-pitch">A flagship UAE quaternary-care hospital. I produced <strong>1,500+ images</strong> across every department &mdash; generative AI photography, retouching and creative direction &mdash; for both the live site and a continuous social calendar.</p>
+    </div>
+  </div>
+
+  <div class="brand-grid cols-4 reveal">
+    <img src="freelance_assets/burjeel-hospitals-bmc/burjeel-hospitals-bmc-01.jpg" alt="BMC 1" loading="lazy" />
+    <img src="freelance_assets/burjeel-hospitals-bmc/burjeel-hospitals-bmc-02.jpg" alt="BMC 2" loading="lazy" />
+    <img src="freelance_assets/burjeel-hospitals-bmc/burjeel-hospitals-bmc-03.jpg" alt="BMC 3" loading="lazy" />
+    <img src="freelance_assets/burjeel-hospitals-bmc/burjeel-hospitals-bmc-04.jpg" alt="BMC 4" loading="lazy" />
+    <img src="freelance_assets/burjeel-hospitals-bmc/burjeel-hospitals-bmc-05.jpg" alt="BMC 5" loading="lazy" />
+    <img src="freelance_assets/burjeel-hospitals-bmc/burjeel-hospitals-bmc-06.jpg" alt="BMC 6" loading="lazy" />
+    <img src="freelance_assets/burjeel-hospitals-bmc/burjeel-hospitals-bmc-07.jpg" alt="BMC 7" loading="lazy" />
+    <img src="freelance_assets/burjeel-hospitals-bmc/burjeel-hospitals-bmc-08.jpg" alt="BMC 8" loading="lazy" />
+    <img src="freelance_assets/burjeel-hospitals-bmc/burjeel-hospitals-bmc-09.jpg" alt="BMC 9" loading="lazy" />
+    <img src="freelance_assets/burjeel-hospitals-bmc/burjeel-hospitals-bmc-10.jpg" alt="BMC 10" loading="lazy" />
+    <img src="freelance_assets/burjeel-hospitals-bmc/burjeel-hospitals-bmc-11.jpg" alt="BMC 11" loading="lazy" />
+    <img src="freelance_assets/burjeel-hospitals-bmc/burjeel-hospitals-bmc-12.jpg" alt="BMC 12" loading="lazy" />
+  </div>
+</section>
+
+<div class="divider"><span class="ornament">·  ·  ·</span></div>
+
+<!-- ============ 06 HOME BOX ============ -->
+<section class="brand" id="home-box">
+  <div class="brand-head">
+    <div class="brand-meta-row reveal">
+      <div class="brand-logo">
+        <span class="wordmark" style="font-family: Inter, sans-serif; font-weight: 700; font-size: 24px; letter-spacing: 0.04em; text-transform: uppercase;">Home <span style="color: var(--accent);">Box</span></span>
+      </div>
+      <div class="brand-meta-col">
+        <h3>Sector</h3>
+        <p class="v">Retail · Home Furniture</p>
+      </div>
+      <div class="brand-meta-col">
+        <h3>Output · Year</h3>
+        <p class="v">Sale-window creative <span class="pipe">/</span> 2025 <span class="pipe">/</span> <a href="https://www.homeboxstores.com/ae/en" target="_blank" rel="noopener">homeboxstores.com</a></p>
+      </div>
+    </div>
+    <div class="brand-title-row reveal d1">
+      <div>
+        <p class="brand-num">06</p>
+        <h2 class="brand-name">Home<br><span class="italic">Box</span></h2>
+      </div>
+      <p class="brand-pitch">Furniture retailer across the GCC. I designed the <strong>White Wednesday promotion</strong> creative for digital and in-store &mdash; tight grid, clean type, room shots that read at any size.</p>
+    </div>
+  </div>
+
+  <div class="brand-grid cols-2 reveal">
+    <img src="freelance_assets/home-box/home-box-01.jpg" alt="Home Box 1" loading="lazy" />
+    <img src="freelance_assets/home-box/home-box-02.jpg" alt="Home Box 2" loading="lazy" />
+  </div>
+</section>
+
+<div class="divider"><span class="ornament">·  ·  ·</span></div>
+
+<!-- ============ 07 NEW IVORY ============ -->
+<section class="brand" id="new-ivory">
+  <div class="brand-head">
+    <div class="brand-meta-row reveal">
+      <div class="brand-logo">
+        <span class="wordmark" style="font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 26px; letter-spacing: 0.05em; color: #C09A4F;">New <span style="font-style: italic;">Ivory</span></span>
+      </div>
+      <div class="brand-meta-col">
+        <h3>Sector</h3>
+        <p class="v">Healthcare · Dental</p>
+      </div>
+      <div class="brand-meta-col">
+        <h3>Output · Year</h3>
+        <p class="v">Social, Generative Ads <span class="pipe">/</span> 2024 — 25 <span class="pipe">/</span> <a href="https://newivory.ae/" target="_blank" rel="noopener">newivory.ae</a></p>
+      </div>
+    </div>
+    <div class="brand-title-row reveal d1">
+      <div>
+        <p class="brand-num">07</p>
+        <h2 class="brand-name">New<br><span class="italic">Ivory</span></h2>
+      </div>
+      <p class="brand-pitch">A Dubai dental practice that wanted to look more like a skincare brand than a clinic. Mint and bone-white system, <strong>generative AI imagery</strong> with clean before-and-after composites &mdash; replacing the usual stock-photo cliché.</p>
+    </div>
+  </div>
+
+  <div class="brand-grid cols-4 reveal">
+    <img src="freelance_assets/new-ivory/new-ivory-01.jpg" alt="New Ivory 1" loading="lazy" />
+    <img src="freelance_assets/new-ivory/new-ivory-02.jpg" alt="New Ivory 2" loading="lazy" />
+    <img src="freelance_assets/new-ivory/new-ivory-03.jpg" alt="New Ivory 3" loading="lazy" />
+    <img src="freelance_assets/new-ivory/new-ivory-04.jpg" alt="New Ivory 4" loading="lazy" />
+    <img src="freelance_assets/new-ivory/new-ivory-05.jpg" alt="New Ivory 5" loading="lazy" />
+    <img src="freelance_assets/new-ivory/new-ivory-06.jpg" alt="New Ivory 6" loading="lazy" />
+    <img src="freelance_assets/new-ivory/new-ivory-07.jpg" alt="New Ivory 7" loading="lazy" />
+    <img src="freelance_assets/new-ivory/new-ivory-08.jpg" alt="New Ivory 8" loading="lazy" />
+    <img src="freelance_assets/new-ivory/new-ivory-09.jpg" alt="New Ivory 9" loading="lazy" />
+    <img src="freelance_assets/new-ivory/new-ivory-10.jpg" alt="New Ivory 10" loading="lazy" />
+    <img src="freelance_assets/new-ivory/new-ivory-11.jpg" alt="New Ivory 11" loading="lazy" />
+    <img src="freelance_assets/new-ivory/new-ivory-12.jpg" alt="New Ivory 12" loading="lazy" />
+  </div>
+</section>
+
+<div class="divider"><span class="ornament">·  ·  ·</span></div>
+
+<!-- ============ 08 EASY TRIP / FLYIN ============ -->
+<section class="brand" id="easy-trip">
+  <div class="brand-head">
+    <div class="brand-meta-row reveal">
+      <div class="brand-logo">
+        <img src="https://www.flyin.com/img/social/logo.gif?v=nd-v0802"
+             alt="Flyin"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+        <span class="wordmark" style="display: none; font-family: Inter, sans-serif; font-weight: 600; font-size: 22px;">Flyin</span>
+      </div>
+      <div class="brand-meta-col">
+        <h3>Sector</h3>
+        <p class="v">Travel · Performance Media</p>
+      </div>
+      <div class="brand-meta-col">
+        <h3>Output · Year</h3>
+        <p class="v">Pitch Deck Design <span class="pipe">/</span> 2025 <span class="pipe">/</span> <a href="https://www.flyin.com/ar" target="_blank" rel="noopener">flyin.com</a></p>
+      </div>
+    </div>
+    <div class="brand-title-row reveal d1">
+      <div>
+        <p class="brand-num">08</p>
+        <h2 class="brand-name">Easy Trip<br><span class="italic">× Flyin</span></h2>
+      </div>
+      <p class="brand-pitch">Performance-media buying proposal for Flyin x Cleartrip. <strong>Editorial pitch deck</strong> &mdash; cover art, section dividers and a system that turns campaign metrics into easy-to-skim narrative.</p>
+    </div>
+  </div>
+
+  <div class="brand-grid cols-2 reveal">
+    <img src="freelance_assets/easy-trip/easy-trip-01.jpg" alt="Easy Trip 1" loading="lazy" />
+    <img src="freelance_assets/easy-trip/easy-trip-02.jpg" alt="Easy Trip 2" loading="lazy" />
+  </div>
+</section>
+
+<div class="divider"><span class="ornament">·  ·  ·</span></div>
+
+<!-- ============ 09 LEMONADE ============ -->
+<section class="brand" id="lemonade">
+  <div class="brand-head">
+    <div class="brand-meta-row reveal">
+      <div class="brand-logo">
+        <span class="wordmark" style="font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 26px; letter-spacing: 0.02em; color: #2EC4E8;">Lemonade</span>
+      </div>
+      <div class="brand-meta-col">
+        <h3>Sector</h3>
+        <p class="v">Family Entertainment</p>
+      </div>
+      <div class="brand-meta-col">
+        <h3>Output · Year</h3>
+        <p class="v">Social, Web, OOH, In-store <span class="pipe">/</span> 2024 — 25 <span class="pipe">/</span> <a href="https://lemonadeplay.ae/" target="_blank" rel="noopener">lemonadeplay.ae</a></p>
+      </div>
+    </div>
+    <div class="brand-title-row reveal d1">
+      <div>
+        <p class="brand-num">09</p>
+        <h2 class="brand-name">Lemonade<br><span class="italic">Play &amp; Discovery</span></h2>
+      </div>
+      <p class="brand-pitch">A children's play centre in Dubai. The brief was big and simple &mdash; keep the brand <em>loud</em> on social, <em>tender</em> in store, and <em>fast</em> to convert. I led the visual system across <strong>carousels, web, OOH and in-store standees</strong>.</p>
+    </div>
+  </div>
+
+  <div class="brand-grid cols-4 reveal">
+    <img src="freelance_assets/lemonade/lemonade-01.jpg" alt="Lemonade 1" loading="lazy" />
+    <img src="freelance_assets/lemonade/lemonade-02.jpg" alt="Lemonade 2" loading="lazy" />
+    <img src="freelance_assets/lemonade/lemonade-03.jpg" alt="Lemonade 3" loading="lazy" />
+    <img src="freelance_assets/lemonade/lemonade-04.jpg" alt="Lemonade 4" loading="lazy" />
+    <img src="freelance_assets/lemonade/lemonade-05.jpg" alt="Lemonade 5" loading="lazy" />
+    <img src="freelance_assets/lemonade/lemonade-06.jpg" alt="Lemonade 6" loading="lazy" />
+    <img src="freelance_assets/lemonade/lemonade-07.jpg" alt="Lemonade 7" loading="lazy" />
+    <img src="freelance_assets/lemonade/lemonade-08.jpg" alt="Lemonade 8" loading="lazy" />
+    <img src="freelance_assets/lemonade/lemonade-09.jpg" alt="Lemonade 9" loading="lazy" />
+    <img src="freelance_assets/lemonade/lemonade-10.jpg" alt="Lemonade 10" loading="lazy" />
+    <img src="freelance_assets/lemonade/lemonade-11.jpg" alt="Lemonade 11" loading="lazy" />
+    <img src="freelance_assets/lemonade/lemonade-12.jpg" alt="Lemonade 12" loading="lazy" />
+  </div>
+</section>
+
+<div class="divider"><span class="ornament">·  ·  ·</span></div>
+
+<!-- ============ 10 NUMU ============ -->
+<section class="brand" id="numu">
+  <div class="brand-head">
+    <div class="brand-meta-row reveal">
+      <div class="brand-logo">
+        <img src="https://numunursery.com/wp-content/themes/numu-revamp/assets/images/numu-logo.svg"
+             alt="Numu Nursery"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+        <span class="wordmark" style="display: none; font-family: Inter, sans-serif; font-weight: 700; font-size: 22px;">numu.</span>
+      </div>
+      <div class="brand-meta-col">
+        <h3>Sector</h3>
+        <p class="v">Education · Early Years</p>
+      </div>
+      <div class="brand-meta-col">
+        <h3>Output · Year</h3>
+        <p class="v">Social Posters <span class="pipe">/</span> 2025 <span class="pipe">/</span> <a href="https://numunursery.com/" target="_blank" rel="noopener">numunursery.com</a></p>
+      </div>
+    </div>
+    <div class="brand-title-row reveal d1">
+      <div>
+        <p class="brand-num">10</p>
+        <h2 class="brand-name"><span class="italic">Numu</span> Nursery</h2>
+      </div>
+      <p class="brand-pitch">A nursery and early-learning brand in Dubai. Bright, kinetic <strong>kids photography</strong> with playful type &mdash; "Bounce into Learning", "Where every jump is a journey". Designed for parent feed-stopping power.</p>
+    </div>
+  </div>
+
+  <div class="brand-grid cols-3 reveal">
+    <img src="freelance_assets/numu/numu-01.jpg" alt="Numu 1" loading="lazy" />
+    <img src="freelance_assets/numu/numu-02.jpg" alt="Numu 2" loading="lazy" />
+    <img src="freelance_assets/numu/numu-03.jpg" alt="Numu 3" loading="lazy" />
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="foot" id="say-hello">
+  <div class="foot-inner">
+    <p class="tt reveal">Let's make something together</p>
+    <h2 class="reveal d1">Say<br><span class="italic">hello.</span></h2>
+    <div class="channels reveal d2">
+      <a class="channel" href="mailto:sujithra27@gmail.com">sujithra27@gmail.com</a>
+      <a class="channel" href="https://www.linkedin.com/in/sujithra-balasubramani-73b687a9/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="channel" href="index.html">UI/UX Portfolio</a>
+    </div>
+    <div class="credit">
+      <span>Sujithra Balasubramani · Chennai · UAE</span>
+      <span>Freelance · 2024 — 2026</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const progress = document.getElementById('progress');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  progress.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
+}, { passive: true });
+
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('solid', window.scrollY > 80);
+}, { passive: true });
+
+const ro = new IntersectionObserver(es => {
+  es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); }
+  });
+}, { threshold: 0.10, rootMargin: '0px 0px -8% 0px' });
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+</script>
+
+</body>
+</html>

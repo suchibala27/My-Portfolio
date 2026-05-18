@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1200" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="logoGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#2EC4E8"/>
+      <stop offset="55%" stop-color="#5B8DF0"/>
+      <stop offset="100%" stop-color="#9B59F5"/>
+    </linearGradient>
+    <radialGradient id="beam1" cx="0.18" cy="0" r="0.7" fx="0.18" fy="0">
+      <stop offset="0%" stop-color="#3B7FD9" stop-opacity="0.55"/>
+      <stop offset="40%" stop-color="#1E4D88" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#0A1428" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="beam2" cx="0.82" cy="0" r="0.7" fx="0.82" fy="0">
+      <stop offset="0%" stop-color="#3B7FD9" stop-opacity="0.55"/>
+      <stop offset="40%" stop-color="#1E4D88" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#0A1428" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="centerGlow" cx="0.5" cy="0.65" r="0.45">
+      <stop offset="0%" stop-color="#1E4D88" stop-opacity="0.55"/>
+      <stop offset="50%" stop-color="#0F2A50" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="1200" fill="#020409"/>
+
+  <!-- Two diagonal V-shaped beams meeting in the middle -->
+  <polygon points="160,0 280,0 480,720 380,720" fill="url(#beam1)" opacity="0.85"/>
+  <polygon points="620,0 740,0 520,720 420,720" fill="url(#beam2)" opacity="0.85"/>
+
+  <!-- Center floor glow under the V -->
+  <ellipse cx="450" cy="780" rx="400" ry="220" fill="url(#centerGlow)"/>
+
+  <!-- Cloudzlab logo at top -->
+  <g transform="translate(450, 110)">
+    <text text-anchor="middle"
+          font-family="'Inter','Helvetica Neue',sans-serif"
+          font-size="62"
+          font-weight="700"
+          letter-spacing="-1.5"
+          fill="url(#logoGrad)">Cloudzlab</text>
+  </g>
+
+  <!-- Headline -->
+  <text x="450" y="800"
+        text-anchor="middle"
+        font-family="'Inter','Helvetica Neue',sans-serif"
+        font-size="42"
+        font-weight="400"
+        letter-spacing="-0.5"
+        fill="#B8C0CC">A New Chapter Begins</text>
+
+  <!-- Subtitle -->
+  <text x="450" y="860"
+        text-anchor="middle"
+        font-family="'Inter','Helvetica Neue',sans-serif"
+        font-size="20"
+        font-weight="400"
+        fill="#6B7585">A Stronger Force in salesforce</text>
+  <text x="450" y="890"
+        text-anchor="middle"
+        font-family="'Inter','Helvetica Neue',sans-serif"
+        font-size="20"
+        font-weight="400"
+        fill="#6B7585">ecosystem is emerging</text>
+
+  <!-- Date -->
+  <text x="450" y="1010"
+        text-anchor="middle"
+        font-family="'Inter','Helvetica Neue',sans-serif"
+        font-size="22"
+        font-weight="500"
+        letter-spacing="1"
+        fill="#FFFFFF">17.02.2026</text>
+
+  <!-- Footer URL -->
+  <text x="450" y="1150"
+        text-anchor="middle"
+        font-family="'Inter','Helvetica Neue',sans-serif"
+        font-size="14"
+        font-weight="400"
+        letter-spacing="1.5"
+        fill="#4A5260">www.cloudzlab.com</text>
+</svg>
