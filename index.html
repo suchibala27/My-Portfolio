@@ -102,36 +102,46 @@ img { display: block; max-width: 100%; }
 .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--ink); margin: 4px 0; transition: 0.3s var(--ease); }
 
 /* ============ HERO ============
-   The portrait IS the hero: a full-cover background image with the
-   subject anchored to the right. Typography sits over the plain
-   studio-grey left side of the photo, with a light gradient for
-   guaranteed text contrast. */
+   Two-column layout: text on the left, contained photo on the right.
+   The photo sits in a bounded rounded card so it never stretches on wide screens. */
 .hero {
   position: relative;
   min-height: 100vh;
   background-color: var(--hero-bg);
-  background-image: url('landing_assets/hero.jpg');
-  background-size: cover;
-  background-position: right center;
-  background-repeat: no-repeat;
   display: flex;
   align-items: center;
   padding: 130px 0 60px;
 }
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(95deg, rgba(231, 230, 227, 0.96) 0%, rgba(231, 230, 227, 0.62) 26%, rgba(231, 230, 227, 0) 48%);
-  pointer-events: none;
-}
+.hero::before { display: none; }
 .hero .wrap {
   position: relative;
   z-index: 1;
   width: 100%;
 }
-.hero-content {
-  max-width: 600px;
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 60px;
+  align-items: center;
+}
+.hero-content { max-width: 600px; }
+.hero-image {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  margin-left: auto;
+  aspect-ratio: 4 / 5;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #ECEAE5;
+  box-shadow: 0 30px 60px -25px rgba(0,0,0,0.28);
+}
+.hero-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 18%;
 }
 .eyebrow {
   font-size: 20px;
@@ -461,11 +471,10 @@ img { display: block; max-width: 100%; }
     box-shadow: 0 12px 24px rgba(0,0,0,0.1);
   }
   .nav-toggle { display: block; }
-  .hero { min-height: 100vh; padding: 110px 0 50px; background-position: 76% center; }
-  .hero::before {
-    background: linear-gradient(180deg, rgba(231,230,227,0.96) 0%, rgba(231,230,227,0.78) 38%, rgba(231,230,227,0.3) 68%, rgba(231,230,227,0) 100%);
-  }
-  .hero-content { max-width: 100%; }
+  .hero { min-height: auto; padding: 110px 0 60px; }
+  .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+  .hero-content { max-width: 100%; order: 2; }
+  .hero-image { order: 1; max-width: 360px; margin: 0 auto; aspect-ratio: 4 / 4.6; }
   .works-grid { grid-template-columns: 1fr; gap: 44px; }
   .about-row { grid-template-columns: 1fr; gap: 40px; }
   .about-portrait { margin: 0 auto; }
@@ -494,20 +503,25 @@ img { display: block; max-width: 100%; }
 </nav>
 
 <!-- ============ HERO ============ -->
-<header class="hero" id="top" role="img" aria-label="Sujithra Balasubramani, UI/UX Designer">
+<header class="hero" id="top">
   <div class="wrap">
-    <div class="hero-content">
-      <p class="eyebrow hero-anim a1">UI/UX Designer</p>
-      <h1 class="hero-anim a2">
-        Transforming complexity into
-        <span class="it">Clear, Impactful experiences.</span>
-      </h1>
-      <p class="hero-sub hero-anim a3">
-        Creating intuitive digital experiences that solve real problems and connect with people.
-      </p>
-      <div class="hero-cta hero-anim a4">
-        <a href="#contact" class="btn btn-dark">Get in Touch <span class="arr">&rarr;</span></a>
-        <a href="landing_assets/Sujithra-Balasubramani-CV.pdf" class="btn btn-light" download>Download CV</a>
+    <div class="hero-grid">
+      <div class="hero-content">
+        <p class="eyebrow hero-anim a1">UI/UX Designer</p>
+        <h1 class="hero-anim a2">
+          Transforming complexity into
+          <span class="it">Clear, Impactful experiences.</span>
+        </h1>
+        <p class="hero-sub hero-anim a3">
+          Creating intuitive digital experiences that solve real problems and connect with people.
+        </p>
+        <div class="hero-cta hero-anim a4">
+          <a href="#contact" class="btn btn-dark">Get in Touch <span class="arr">&rarr;</span></a>
+          <a href="landing_assets/Sujithra-Balasubramani-CV.pdf" class="btn btn-light" download>Download CV</a>
+        </div>
+      </div>
+      <div class="hero-image hero-anim a3">
+        <img src="landing_assets/hero.jpg" alt="Sujithra Balasubramani, UI/UX Designer" />
       </div>
     </div>
   </div>
